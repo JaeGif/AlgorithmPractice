@@ -1,10 +1,8 @@
 # Author: Jae
-# Version: NA
-# Date Started: NA
-# Date Completed: NA
-# Main Function: NA
 # Notes: This file contains algorithm practice from CodeWars/LeetCode/HackerRank
 # The first function in each group is my attempt, the 2nd is the most popular attempt from all users.
+
+# -------------------------------------------------------------------------------------------------------------------- #
 
 # Find the sum of products of 3 and 5
 def solution_jae(number):
@@ -30,6 +28,8 @@ def solution_best(number):
     """Best solution, Project Euler 1. Find the sum of multiples of 3 or 5"""
     return sum(x for x in range(number) if x % 3 == 0 or x % 5 == 0)
 
+
+# -------------------------------------------------------------------------------------------------------------------- #
 
 # Find the unique number in a list of numbers of arbitrary length in which there is only ever 1 unique number
 def find_uniq_jae(arr):
@@ -63,6 +63,8 @@ def find_uniq_best(arr):
     return a if arr.count(a) == 1 else b
 
 
+# -------------------------------------------------------------------------------------------------------------------- #
+
 # compare anagrams in list, if no anagrams return empty list
 def anagrams_best(word, words):
     """best solution"""
@@ -85,6 +87,8 @@ def anagrams_jae(word, words):
     return anagram
 
 
+# -------------------------------------------------------------------------------------------------------------------- #
+
 # find the number of people who are remaining on a bus after a certain number of stops
 # [[on,off], [on, off], ...]
 def number_jae(bus_stops):
@@ -102,6 +106,7 @@ def number_best(bus_stops):
     return sum([stop[0] - stop[1] for stop in bus_stops])
 
 
+# -------------------------------------------------------------------------------------------------------------------- #
 # input is seconds, out hours minutes seconds formatted properly, maximum hours are 99:99:99 then it breaks because
 # it is not formatted for days as per the questions test cases
 def make_readable_jae(seconds):
@@ -116,3 +121,23 @@ def make_readable_jae(seconds):
 def make_readable_best(s):
     """best solution"""
     return '{:02}:{:02}:{:02}'.format(s / 3600, s / 60 % 60, s % 60)
+
+
+# -------------------------------------------------------------------------------------------------------------------- #
+
+
+# format numbers as a phone number in ONLY an increasing order with 0 being the highest num
+def create_phone_number_jae(n):  # list comprehension style
+    """my solution"""
+    new_num = '({}) {}-{}'.format(''.join([str(num) for num in n[:3]]),
+                                  ''.join([str(num) for num in n[3:6]]),
+                                  ''.join([str(num) for num in n[6:]]))
+    return new_num
+
+
+def create_phone_number_best(n):
+    """best solution"""
+    n = ''.join(map(str, n))
+    return '(%s) %s-%s' % (n[:3], n[3:6], n[6:])
+
+# -------------------------------------------------------------------------------------------------------------------- #
