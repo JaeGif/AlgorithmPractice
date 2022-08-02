@@ -33,3 +33,9 @@ function findNextSquareJae(sq) {
     }
 }
 
+// clever answer has use of ? and : operators. I should practice using them.
+// While the fn is short, it's a little difficult to read.
+function findNextSquareClever(sq) {
+    return Math.sqrt(sq)%1? -1 : Math.pow(Math.sqrt(sq)+1,2);
+  }
+
