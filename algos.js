@@ -21,4 +21,15 @@ function openOrSeniorClever(data){
     return data.map(([age, handicap]) => (age > 54 && handicap > 7) ? 'Senior' : 'Open');
 }
   
+// If the arg is a perfect square, return the next sequential perfect square.
+// quick check for remainder using modulo
+function findNextSquareJae(sq) {
+    const root = Math.sqrt(sq);
+    if (root % 1 !== 0){
+        return -1;
+    } else {
+        const nextInt = root + 1;
+        return nextInt * nextInt;
+    }
+}
 
