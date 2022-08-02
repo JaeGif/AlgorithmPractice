@@ -1,6 +1,7 @@
 # Author: Jae
 # Notes: This file contains algorithm practice from CodeWars/LeetCode/HackerRank
-# The first function in each group is my attempt, the 2nd is the most popular attempt from all users.
+# The first function in each group is my attempt, the 2nd is the most popular attempt from all users, usually a clever answer, but not always
+# The most readable as they tend to be one liners. The one liners are just included to help me see other unique solutions I hadn't thought of.
 
 # -------------------------------------------------------------------------------------------------------------------- #
 
