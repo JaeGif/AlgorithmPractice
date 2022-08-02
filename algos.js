@@ -12,13 +12,13 @@ function openOrSeniorJae(data){
             strArray.push('Senior');
         } else {
             strArray.push('Open');
-        };
-    });
+        }
+    })
     return strArray;
-};
-
-// Best practices use map method.
+}
+// Best practices use map method to map arrays of equivalent lengths.
 function openOrSeniorClever(data){
     return data.map(([age, handicap]) => (age > 54 && handicap > 7) ? 'Senior' : 'Open');
-  }
+}
   
+
