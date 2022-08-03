@@ -1,8 +1,20 @@
 // fizzbuzz, find the sums of products of 3 and 5
-function fizzBuzzJae(){
-    // pass for now
-}
+function fizzBuzzJae(inputNumber){
 
+    let output = ''
+
+    if (inputNumber % 3 === 0){
+        output += 'Fizz';
+    }
+    if (inputNumber % 5 === 0){
+        output += 'Buzz';
+    } else {
+        output += 'Not Fizzy or Buzzy :(';
+    }
+    console.log(output);
+    
+}
+fizzBuzzJae(7);
 // given a list of people's ages and handicap, determine whether they fit in the senior or open golfing category.
 // Senior == age >= 55 AND handicap > 7
 function openOrSeniorJae(data){
