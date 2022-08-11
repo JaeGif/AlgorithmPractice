@@ -65,3 +65,16 @@ function duplicateCountJae(text) {
   console.log(count);
   return count;
 }
+
+// this is a cute solution that uses Regex instead of filter. I initially planned to use regex,
+// but couldn't remember the .join() method
+function duplicateCountRegexSolution(text) {
+  return (
+    text
+      .toLowerCase()
+      .split('')
+      .sort()
+      .join('')
+      .match(/([^])\1+/g) || []
+  ).length;
+}
