@@ -12,6 +12,23 @@ function fizzBuzzJae(inputNumber) {
     output += 'Not Fizzy or Buzzy :(';
   }
 }
+
+// FizzBuzz variation # 1: sum the multiples, negative values return 0
+function fizzBuzzVariantJae(inputNumber) {
+  let sum = 0;
+  if (inputNumber < 0) {
+    return 0;
+  }
+  for (let i = 0; i < inputNumber; i++) {
+    if (i % 3 === 0) {
+      sum += i;
+    } else if (i % 5 === 0) {
+      sum += i;
+    }
+  }
+  return sum;
+}
+
 // given a list of people's ages and handicap,
 // determine whether they fit in the senior or open golfing category.
 // Senior == age >= 55 AND handicap > 7
