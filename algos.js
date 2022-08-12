@@ -146,3 +146,25 @@ function isValidWalkSwitchCases(walk) {
 
   return dt === 10 && dx === 0 && dy === 0;
 }
+
+/* Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice. */
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+
+// time complexity O(n^2) because it cycles a for loop 2x each time taking O(n) time.
+// space complexity O(1), constant time, because the space required does not depend on the length of the array
+const twoSumJae = function (nums, target) {
+  for (i = 0; i < nums.length; i++) {
+    for (j = 0; j < nums.length; j++) {
+      if (i === j) {
+        continue;
+      } else if (nums[i] + nums[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+};
