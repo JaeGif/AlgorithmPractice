@@ -78,3 +78,57 @@ function duplicateCountRegexSolution(text) {
       .match(/([^])\1+/g) || []
   ).length;
 }
+
+/* You always walk only a single block for each letter (direction) and you know it takes you one minute
+ to traverse one city block, so create a function that will return true if the walk the app gives you will take you
+  exactly ten minutes (you don't want to be early or late!) and will, of course, return you to your starting point.
+   Return false otherwise. */
+
+// walk is always an array of cardinal directions in lowercase
+// this is an extremely naive approach but I came up with it very quickly so to be expected.
+function isValidWalkJae(walk) {
+  let northSouthValue = 0;
+  let eastWestValue = 0;
+  for (let i = 0; i < walk.length; i++) {
+    if (walk[i] === 'n') {
+      northSouthValue++;
+    } else if (walk[i] === 's') {
+      northSouthValue--;
+    }
+    if (walk[i] === 'e') {
+      eastWestValue++;
+    } else if (walk[i] === 'w') {
+      eastWestValue--;
+    }
+  }
+  if (northSouthValue === 0 && eastWestValue === 0 && walk.length === 10) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// This is a better solution that uses switch cases instead of nexted if/else statements. Switch cases are more efficient and readable
+function isValidWalkSwitchCases(walk) {
+  let dx = 0;
+  let dy = 0;
+  let dt = walk.length;
+
+  for (let i = 0; i < walk.length; i++) {
+    switch (walk[i]) {
+      case 'n':
+        dy--;
+        break;
+      case 's':
+        dy++;
+        break;
+      case 'w':
+        dx--;
+        break;
+      case 'e':
+        dx++;
+        break;
+    }
+  }
+
+  return dt === 10 && dx === 0 && dy === 0;
+}
