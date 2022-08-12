@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// fizzbuzz, find the sums of products of 3 and 5
+// fizzbuzz, find the products of 3 and 5 using output strings
 function fizzBuzzJae(inputNumber) {
   let output = '';
 
