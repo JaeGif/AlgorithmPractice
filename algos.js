@@ -177,7 +177,7 @@ Open brackets must be closed in the correct order. */
  * @param {string} s
  * @return {boolean}
  */
-const isValid = function (s) {
+const isValidJae = function (s) {
   for (let i = 0; i < s.length; i++) {
     switch (s[i]) {
       case '(':
@@ -204,6 +204,7 @@ const isValid = function (s) {
 };
 
 // this variant uses a stack to keep track of extra test cases
+// a stack is first in, last out
 const isValidVariant = function (s) {
   let stack = [];
   let open = { '(': ')', '{': '}', '[': ']' };
@@ -219,5 +220,16 @@ const isValidVariant = function (s) {
 
   return stack.length === 0;
 };
-let s = '([)]';
-console.log(isValidVariant(s));
+
+// Checks if a number is a palindrome
+// O(n) time complxity cause for loop + log(n) for if
+
+const isPalindromeJae = function (x) {
+  const stringX = x.toString();
+  for (let i = 0; i < stringX.length / 2; i++) {
+    if (stringX[i] !== stringX[stringX.length - 1 - i]) {
+      return false;
+    }
+  }
+  return true;
+};
