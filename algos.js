@@ -203,6 +203,7 @@ const isValid = function (s) {
   return true;
 };
 
+// this variant uses a stack to keep track of extra test cases
 const isValidVariant = function (s) {
   let stack = [];
   let open = { '(': ')', '{': '}', '[': ']' };
