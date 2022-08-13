@@ -168,3 +168,55 @@ const twoSumJae = function (nums, target) {
     }
   }
 };
+
+/* Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+An input string is valid if:
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order. */
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+const isValid = function (s) {
+  for (let i = 0; i < s.length; i++) {
+    switch (s[i]) {
+      case '(':
+        if (s[i + 1] === ')') {
+          continue;
+        } else {
+          return false;
+        }
+      case '{':
+        if (s[i + 1] === '}') {
+          continue;
+        } else {
+          return false;
+        }
+      case '[':
+        if (s[i + 1] === ']') {
+          continue;
+        } else {
+          return false;
+        }
+    }
+  }
+  return true;
+};
+
+const isValidVariant = function (s) {
+  let stack = [];
+  let open = { '(': ')', '{': '}', '[': ']' };
+  let close = { ')': true, '}': true, ']': true };
+
+  for (let char of s) {
+    if (open[char]) {
+      stack.push(char);
+    } else if (close[char]) {
+      if (open[stack.pop()] !== char) return false;
+    }
+  }
+
+  return stack.length === 0;
+};
+let s = '([)]';
+console.log(isValidVariant(s));
