@@ -225,9 +225,25 @@ const isValidVariant = function (s) {
 // O(n) time complxity cause for loop + log(n) for if
 
 const isPalindromeJae = function (x) {
-  const stringX = x.toString();
+  const stringX = x.toString(x);
   for (let i = 0; i < stringX.length / 2; i++) {
     if (stringX[i] !== stringX[stringX.length - 1 - i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+// can also use .replace for a little better efficiency
+const isPalindromeMixedChars = function (s) {
+  const onlyLettersArray = s
+    .toLowerCase()
+    .split('')
+    .filter((char) => /[a-zA-Z0-9]/.test(char));
+  for (let i = 0; i < onlyLettersArray.length / 2; i++) {
+    if (
+      onlyLettersArray[i] !== onlyLettersArray[onlyLettersArray.length - 1 - i]
+    ) {
       return false;
     }
   }
