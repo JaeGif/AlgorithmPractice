@@ -249,3 +249,22 @@ const isPalindromeMixedChars = function (s) {
   }
   return true;
 };
+
+/* Given a string s, find the first non-repeating character in it and return its index.
+ If it does not exist, return -1. */
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const firstUniqChar = function (s) {
+  const cache = {};
+  for (let i = 0; i < s.length; i++) {
+    cache[s[i]] = { times: ((cache[s[i]] || {}).times || 0) + 1, index: i };
+  }
+  for (const prop in cache) {
+    if (cache[prop].times === 1) return cache[prop].index;
+  }
+  return -1;
+};
+
+console.log(firstUniqChar('aabcb'));
