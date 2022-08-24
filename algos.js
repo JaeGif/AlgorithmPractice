@@ -288,4 +288,31 @@ function mergeTwoLists(l1, l2) {
   return head.next;
 }
 
-console.log(mergeTwoLists([1, 2, 3, 4, 5], [2, 3, 4, 7, 9, 10]));
+/* Given an integer n, return true if it is a power of three. Otherwise, return false.
+
+An integer n is a power of three, if there exists an integer x such that n == 3x. */
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+const isPowerOfThree = function (n) {
+  let threeDivisor = n;
+  if (n === 0) {
+    return false;
+  } else if (n === 1) {
+    return true;
+  }
+  while (threeDivisor > 3) {
+    threeDivisor /= 3;
+    if (threeDivisor % 3 !== 0) {
+      return false;
+    }
+  }
+  if (threeDivisor === 3) {
+    return true;
+  }
+  return false;
+};
+
+console.log(isPowerOfThree(27));
