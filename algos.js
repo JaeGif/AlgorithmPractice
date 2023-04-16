@@ -314,5 +314,10 @@ const isPowerOfThree = function (n) {
   }
   return false;
 };
-
-console.log(isPowerOfThree(27));
+const createCounter = function (n) {
+  this.current = n - 1;
+  return function () {
+    this.current += 1;
+    return this.current;
+  };
+};
