@@ -314,6 +314,8 @@ const isPowerOfThree = function (n) {
   }
   return false;
 };
+
+// returns n + 1 every time the counter is called
 const createCounter = function (n) {
   this.current = n - 1;
   return function () {
@@ -321,3 +323,10 @@ const createCounter = function (n) {
     return this.current;
   };
 };
+
+/**
+ * @param {number} millis
+ */
+// set sleep for some time with no callback
+const sleep = async (millis) =>
+  await new Promise((resolve) => setTimeout(resolve, millis));
