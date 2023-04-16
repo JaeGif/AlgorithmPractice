@@ -330,3 +330,8 @@ const createCounter = function (n) {
 // set sleep for some time with no callback
 const sleep = async (millis) =>
   await new Promise((resolve) => setTimeout(resolve, millis));
+
+Array.prototype.last = function () {
+  if (!this.length > 0) return -1;
+  return this[this.length - 1];
+};
