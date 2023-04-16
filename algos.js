@@ -335,3 +335,11 @@ Array.prototype.last = function () {
   if (!this.length > 0) return -1;
   return this[this.length - 1];
 };
+// return combination of n to climb stairs by 2 or 1
+/**
+ * @param {number} n
+ * @return {number}
+ */
+function climbStairs(n) {
+  return n <= 3 ? n : 2 * climbStairs(n - 2) + climbStairs(n - 3);
+}
