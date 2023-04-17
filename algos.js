@@ -389,4 +389,5 @@ const hasCycle = function (head) {
     // 1, fast, slow, 4 ----------
     // 1, 2, 3, slow/fast -------- done
   }
+  return true;
 };
