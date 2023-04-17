@@ -343,3 +343,50 @@ Array.prototype.last = function () {
 function climbStairs(n) {
   return n <= 3 ? n : 2 * climbStairs(n - 2) + climbStairs(n - 3);
 }
+
+// LC 136. Single Number
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const singleNumber = function (nums) {
+  if (nums.length < 0) {
+    return 0;
+  }
+  let num = 0;
+  for (let i = 0; i < nums.length; i++) {
+    num ^= nums[i];
+    // bitwise compare the num to the next num.
+    // ex if num = 0000
+    // then num is compared bitwise to the next number: 0001 leaves behind 1 meaning these are not the same
+    // now num = 0001
+    // round 2 num is 2 0010
+    // num compares, 0011
+    // continue 3 0011 -> 0000
+  }
+  return num;
+};
+
+// LC 141. Linked List Cycle
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+const hasCycle = function (head) {
+  if (head === null) return false; // no head case
+  let slow = head;
+  let fast = head.next;
+  while (slow !== fast) {
+    if (fast === null || fast.next === null) return false; // guard case for the double skip
+    // Floyd's Cycle Finding Algorithm
+    slow = slow.next;
+    fast = fast.next.next;
+    // slow goes 1, fast goes 2. If they ever meet there is a cycle
+    // ex 1 -> 2 -> 3 -> 4-> ---------1-> 2 -> 3 ...
+    // slow, fast, 3 ,4, ---------1, 2, 3
+    // 1, slow, 3, fast, ---------1, 2, 3
+    // 1, fast, slow, 4 ----------
+    // 1, 2, 3, slow/fast -------- done
+  }
+};
