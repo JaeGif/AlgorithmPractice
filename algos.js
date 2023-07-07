@@ -391,3 +391,44 @@ const hasCycle = function (head) {
   }
   return true;
 };
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function (digits) {
+  let inc = [digits[digits.length - 1] + 1];
+  if (inc === [10]) {
+    inc = [1, 0];
+  }
+
+  let arr = [...digits.slice(0, -1), ...inc];
+};
+
+// LC 13. Roman to Integer
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const lookupTable = {
+  I: 1,
+  V: 5,
+  X: 10,
+  L: 50,
+  C: 100,
+  D: 500,
+  M: 1000,
+};
+const romanToInt = function (s) {
+  let runningTotal = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (lookupTable[s[i]] < lookupTable[s[i + 1]] && s[i + 1]) {
+      // subtraction happens here
+      runningTotal += lookupTable[s[i + 1]] - lookupTable[s[i]];
+      i++;
+    } else {
+      runningTotal += lookupTable[s[i]];
+      // just convert to int and add
+    }
+  }
+  return runningTotal;
+};
