@@ -421,14 +421,31 @@ const lookupTable = {
 const romanToInt = function (s) {
   let runningTotal = 0;
   for (let i = 0; i < s.length; i++) {
+    // can squeeze out minimal speed increase by not comparing M with the next value as M is the largest possible value
     if (lookupTable[s[i]] < lookupTable[s[i + 1]] && s[i + 1]) {
-      // subtraction happens here
       runningTotal += lookupTable[s[i + 1]] - lookupTable[s[i]];
       i++;
     } else {
       runningTotal += lookupTable[s[i]];
-      // just convert to int and add
     }
   }
   return runningTotal;
+};
+
+// LC 27. Remove Element
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+const removeElement = function (nums, val) {
+  // remove all elements equivalent to val in place
+  let count = 0;
+  for (let j = 0; j < nums.length; j++) {
+    if (nums[j] !== val) {
+      nums[count] = nums[j];
+      count++;
+    }
+  }
+  return i;
 };
