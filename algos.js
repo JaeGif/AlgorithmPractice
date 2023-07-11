@@ -449,3 +449,24 @@ const removeElement = function (nums, val) {
   }
   return i;
 };
+
+// LC 28. Find the Index of the First Occurrence in a String
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+const strStr = function (haystack, needle) {
+  if (haystack === needle) return 0;
+  let modHaystack = haystack.split('');
+  for (let i = 0; i < modHaystack.length; i++) {
+    if (modHaystack[i] === needle[0]) {
+      let check = [...modHaystack].splice(i, needle.length).join('');
+      if (check === needle) {
+        return i;
+      }
+    }
+  }
+  return -1;
+};
+console.log(strStr('mississippi', 'issip'));
