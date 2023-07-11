@@ -461,8 +461,7 @@ const strStr = function (haystack, needle) {
   let modHaystack = haystack.split('');
   for (let i = 0; i < modHaystack.length; i++) {
     if (modHaystack[i] === needle[0]) {
-      let check = [...modHaystack].splice(i, needle.length).join('');
-      if (check === needle) {
+      if ([...modHaystack].splice(i, needle.length).join('') === needle) {
         return i;
       }
     }
