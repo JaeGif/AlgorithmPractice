@@ -468,4 +468,74 @@ const strStr = function (haystack, needle) {
   }
   return -1;
 };
-console.log(strStr('mississippi', 'issip'));
+
+// LC 28. Find the Index of the First Occurence in a String
+// indexOf solution
+// indexOf returns the first index of a matching substring in a string as a built in. Beats most implementations naturally as it is written in C++
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+const strStrI = function (haystack, needle) {
+  return haystack.indexOf(needle);
+};
+
+// LC 28. Find the Index of the First Occurence in a String
+// better solution from Stack Overflow
+
+function strStrSO(haystack, needle) {
+  for (let o = 0; haystack[o]; o++) {
+    let found = true;
+    for (let i = 0; needle[i]; i++) {
+      if (haystack[o + i] !== needle[i]) {
+        found = false;
+        break;
+      }
+    }
+    if (found) return o;
+  }
+  return -1;
+}
+
+/* 
+Write an algorithm to determine if a number n is happy.
+
+A happy number is a number defined by the following process:
+
+    Starting with any positive integer, replace the number by the sum of the squares of its digits.
+    Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+    Those numbers for which this process ends in 1 are happy.
+
+Return true if n is a happy number, and false if not.
+
+ 
+
+Example 1:
+19 1^2 + 9^2 = 82
+Input: n = 19
+Output: true
+Explanation:
+1^2 + 9^2 = 82
+8^2 + 2^2 = 68
+6^2 + 8^2 = 100
+1^2 + 0^2 + 0^2 = 1
+ */
+function isHappy(n) {
+  let set = new Set();
+  return helper(n, set);
+
+  function helper(n) {
+    if (n === 1) return true;
+    if (set.has(n)) return false;
+    set.add(n);
+    let temp = 0;
+    for (let i = 0; i < n; i++) {
+      temp += n ** 2;
+    }
+    return helper(temp);
+  }
+}
+
+console.log(isHappy(3));
