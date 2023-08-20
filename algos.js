@@ -552,3 +552,20 @@ const map = function (arr, fn) {
   }
   return arr;
 };
+
+/**
+ * 2690. Infinite Method Object
+
+ * @return {Object}
+ */
+const createInfiniteObject = function () {
+  return new Proxy(
+    {},
+    {
+      get: (_, prop) => () => prop,
+    }
+  );
+};
+
+const obj = createInfiniteObject();
+console.log(obj['abc123']()); // "abc123"
