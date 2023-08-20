@@ -538,4 +538,17 @@ function isHappy(n) {
   }
 }
 
-console.log(isHappy(3));
+/**
+ *
+ * LC. 2635. Apply Transform Over Each Element in Array
+ * @param {number[]} arr
+ * @param {Function} fn
+ * @return {number[]}
+ */
+const map = function (arr, fn) {
+  for (let i = 0; i < arr.length; i++) {
+    // for every element, call the funciton on the element, and return the element in the same position it was at in the original array
+    arr[i] = fn(arr[i], i);
+  }
+  return arr;
+};
