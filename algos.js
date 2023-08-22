@@ -567,5 +567,31 @@ const createInfiniteObject = function () {
   );
 };
 
-const obj = createInfiniteObject();
-console.log(obj['abc123']()); // "abc123"
+/**
+ * 169. Majority Element
+
+ * @param {number[]} nums
+ * @return {number}
+ */
+const majorityElement = function (nums) {
+  // use an intermediate value
+  let count = 0;
+  let candidate = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (count === 0) {
+      candidate = nums[i];
+    }
+
+    if (nums[i] === candidate) {
+      count++;
+    } else {
+      count--;
+    }
+  }
+
+  return candidate;
+};
+// find the element appearing more than half of the time
+
+console.log(majorityElement([3, 2, 3]));
