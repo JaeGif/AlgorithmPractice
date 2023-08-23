@@ -594,4 +594,43 @@ const majorityElement = function (nums) {
 };
 // find the element appearing more than half of the time
 
-console.log(majorityElement([3, 2, 3]));
+/**
+ * LC 88. Merge Sorted Array
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+const merge = function (nums1, m, nums2, n) {
+  // 2 pointer solution
+  let i = m - 1;
+  let j = n - 1;
+  let k = m + n - 1;
+
+  while (j >= 0) {
+    if (i >= 0 && nums1[i] > nums2[j]) {
+      nums1[k--] = nums1[i--];
+    } else {
+      nums1[k--] = nums2[j--];
+    }
+  }
+};
+
+/**
+ * LC 1768. Merge Strings Alternately
+ * @param {string} word1
+ * @param {string} word2
+ * @return {string}
+ */
+const mergeAlternately = function (word1, word2) {
+  let result = '';
+
+  const maxLength = Math.max(word1.length, word2.length);
+  // go el 1 in word1 then el1 in word 2. 1 for loop across word1 will handle
+  for (let i = 0; i < maxLength; i++) {
+    if (i < word1.length) result += word1[i];
+    if (i < word2.length) result += word2[i];
+  }
+  return result;
+};
