@@ -634,3 +634,21 @@ const mergeAlternately = function (word1, word2) {
   }
   return result;
 };
+
+//1071. Greatest Common Divisor of Strings
+/**
+ * @param {string} str1
+ * @param {string} str2
+ * @return {string}
+ * returns the greatest common string
+ */
+
+const gcdOfStrings = function (str1, str2) {
+  let commonString = '';
+  if (str1 + str2 === str2 + str1) {
+    const gcd = (a, b) => (0 === b ? a : gcd(b, a % b));
+    return str1.substring(0, gcd(str1.length, str2.length));
+  } else {
+    return '';
+  }
+};
