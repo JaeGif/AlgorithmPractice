@@ -652,3 +652,42 @@ const gcdOfStrings = function (str1, str2) {
     return '';
   }
 };
+
+/**
+ * 1431. Kids With the Greatest Number of Candies
+ * @param {number[]} candies
+ * @param {number} extraCandies
+ * @return {boolean[]}
+ */
+const kidsWithCandies = (candies, extraCandies) => {
+  const max = Math.max(...candies);
+  return candies.map((candy) => candy + extraCandies >= max);
+};
+
+/**
+ * 605. Can Place Flowers
+ * @param {number[]} flowerbed
+ * @param {number} n
+ * @return {boolean}
+ */
+const canPlaceFlowers = function (flowerbed, n) {
+  // [0, 0, 0] OR [1, 0 ,1]
+  // if (flowerbed[i] === 0 && (flowerbed[i - 1] === 0 || undefined) && (flowerbed[i + 1] === 0 || undefined)) count++, i++
+  // [0, 1, 0, 0, 1]
+  if (flowerbed.length === 1 && flowerbed[0] === 0) n--;
+  for (let i = 0; i < flowerbed.length; i++) {
+    if (
+      flowerbed[i] === 0 &&
+      (flowerbed[i - 1] === 0 || !flowerbed[i - 1]) &&
+      (flowerbed[i + 1] === 0 || !flowerbed[i + 1])
+    ) {
+      n--;
+      i++;
+    }
+    if (n <= 0) return true;
+  }
+
+  // [1,0,1,0,1,0,1] n = 2
+  return false;
+};
+console.log(canPlaceFlowers([0, 1, 0], 1)); // false
