@@ -690,4 +690,38 @@ const canPlaceFlowers = function (flowerbed, n) {
   // [1,0,1,0,1,0,1] n = 2
   return false;
 };
-console.log(canPlaceFlowers([0, 1, 0], 1)); // false
+
+/**
+ * 345. Reverse Vowels of a String
+ * @param {string} s
+ * @return {string}
+ */
+const reverseVowels = function (s) {
+  let sArray = s.split('');
+  // 2 pointers solution
+  const vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+  let high = sArray.length - 1;
+  let low = 0;
+  while (high > low) {
+    if (vowels.includes(sArray[high]) && !vowels.includes(sArray[low])) {
+      low++;
+    }
+    if (vowels.includes(sArray[low]) && !vowels.includes(sArray[high])) {
+      high--;
+    }
+    if (vowels.includes(sArray[high]) && vowels.includes(sArray[low])) {
+      const highVowel = sArray[high];
+      sArray[high] = sArray[low];
+      sArray[low] = highVowel;
+      low++;
+      high--;
+    }
+    if (!vowels.includes(sArray[high]) && !vowels.includes(sArray[low])) {
+      low++;
+      high--;
+    }
+  }
+  return sArray.join('');
+};
+
+console.log(reverseVowels('friend'));
