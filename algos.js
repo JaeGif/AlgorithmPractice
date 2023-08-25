@@ -671,9 +671,6 @@ const kidsWithCandies = (candies, extraCandies) => {
  * @return {boolean}
  */
 const canPlaceFlowers = function (flowerbed, n) {
-  // [0, 0, 0] OR [1, 0 ,1]
-  // if (flowerbed[i] === 0 && (flowerbed[i - 1] === 0 || undefined) && (flowerbed[i + 1] === 0 || undefined)) count++, i++
-  // [0, 1, 0, 0, 1]
   if (flowerbed.length === 1 && flowerbed[0] === 0) n--;
   for (let i = 0; i < flowerbed.length; i++) {
     if (
@@ -687,7 +684,6 @@ const canPlaceFlowers = function (flowerbed, n) {
     if (n <= 0) return true;
   }
 
-  // [1,0,1,0,1,0,1] n = 2
   return false;
 };
 
@@ -724,4 +720,33 @@ const reverseVowels = function (s) {
   return sArray.join('');
 };
 
-console.log(reverseVowels('friend'));
+/**
+ * 151. Reverse Words in a String
+ * @param {string} s
+ * @return {string}
+ */
+const reverseWords = function (s) {
+  /*   const wordArr = s.split(' ');
+  let result = [];
+  for (let i = 0; i < wordArr.length; i++) {
+    if (wordArr[i] !== '') result.unshift(wordArr[i]);
+  }
+  result = result.join(' ');
+  return result; */
+  s = s.split(' ').filter((el) => {
+    return el !== '';
+  });
+  for (let i = s.length - 1; i >= 0; i--) {
+    console.log(s, i);
+    s.push(s[s.length - 1]);
+    s.unshift();
+  }
+  return s;
+};
+
+/**
+ * 238. Product of Array Except Self
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const productExceptSelf = function (nums) {};
