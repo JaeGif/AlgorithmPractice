@@ -745,8 +745,70 @@ const reverseWords = function (s) {
 };
 
 /**
- * 238. Product of Array Except Self
+ * Example 1:
+
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
+
+Example 2:
+
+Input: nums = [-1,1,0,-3,3]
+Output: [0,0,9,0,0]
+TC O(n)
+Optional SC O(1)
+
+ 
+/* 238. Product of Array Except Self
  * @param {number[]} nums
  * @return {number[]}
+ 
+const productExceptSelf = function (nums) {
+  let answer = nums;
+  // current unsolved
+  // O(n) time means only 1 pass through the array ...
+  for (let i = 0; i < answer.length; i++) {}
+  return answer;
+};
  */
-const productExceptSelf = function (nums) {};
+
+/**
+ * 443. String Compression
+ * @param {character[]} chars
+ * @return {number}
+ */
+const compress = function (chars) {
+  let s = '';
+  let count = 0;
+  let current = '';
+  for (let i = 0; i < chars.length; i++) {
+    if (current === '') {
+      current = chars[i];
+    }
+    if (chars[i] === current) {
+      count++;
+    }
+    if (chars[i] !== current || !chars[i + 1]) {
+      s += current;
+      s += count;
+      current = chars[i];
+      count = 1;
+    }
+  }
+  s = s.split('');
+
+  return s.length;
+};
+
+/**
+ * 14. Longest Common Prefix
+ * @param {string[]} strs
+ * @return {string}
+ Input: strs = ["flower","flow","flight"]
+ Output: "fl"
+ */
+const longestCommonPrefix = function (strs) {
+  let commonStr = '';
+  for (let i = 0; i < strs.length; i++) {
+    for (let j = 0; j < strs[i].length; j++) {}
+  }
+};
