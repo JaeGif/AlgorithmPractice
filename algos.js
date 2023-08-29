@@ -804,6 +804,9 @@ const compress = function (chars) {
  * @return {string}
  Input: strs = ["flower","flow","flight"]
  Output: "fl"
+ 14. Longest Common Prefix
+
+
  */
 
 const longestCommonPrefix = function (strs) {
