@@ -800,15 +800,25 @@ const compress = function (chars) {
 };
 
 /**
- * 14. Longest Common Prefix
  * @param {string[]} strs
  * @return {string}
  Input: strs = ["flower","flow","flight"]
  Output: "fl"
  */
+
 const longestCommonPrefix = function (strs) {
-  let commonStr = '';
-  for (let i = 0; i < strs.length; i++) {
-    for (let j = 0; j < strs[i].length; j++) {}
+  let commonStr = strs[0];
+  if (strs.length === 0) {
+    return '';
   }
+  for (let i = 0; i < commonStr.length; i++) {
+    for (let j = 0; j < strs.length; j++) {
+      if (i === strs[j].length || strs[j][i] !== commonStr[i]) {
+        return commonStr.slice(0, i);
+      }
+    }
+  }
+  return commonStr;
 };
+
+console.log(longestCommonPrefix(['flower', 'flow', 'flight']));
