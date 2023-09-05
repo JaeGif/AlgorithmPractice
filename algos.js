@@ -774,6 +774,7 @@ const productExceptSelf = function (nums) {
   let productVal = 1;
   let i = nums.length - 1;
   for (i; i > 0; i--) {
+    //
     resultArr[i] = resultArr[i - 1] * productVal;
     productVal = nums[i] * productVal;
   }
