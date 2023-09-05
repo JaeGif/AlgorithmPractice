@@ -759,23 +759,34 @@ Optional SC O(1)
 
  
 /* 238. Product of Array Except Self
+ *
  * @param {number[]} nums
  * @return {number[]}
- 
-const productExceptSelf = function (nums) {
-  let answer = nums;
-  // current unsolved
-  // O(n) time means only 1 pass through the array ...
-  for (let i = 0; i < answer.length; i++) {}
-  return answer;
-};
  */
+const productExceptSelf = function (nums) {
+  const resultArr = [];
+  for (let i = 0; i < nums.length; i++) {
+    let productVal = nums[i];
+    // after first element
+    if (resultArr.length !== 0) productVal = productVal * resultArr[i - 1];
+    resultArr.push(productVal);
+  }
+  let productVal = 1;
+  let i = nums.length - 1;
+  for (i; i > 0; i--) {
+    resultArr[i] = resultArr[i - 1] * productVal;
+    productVal = nums[i] * productVal;
+  }
+  resultArr[i] = productVal;
+  return resultArr;
+};
 
 /**
  * 443. String Compression
  * @param {character[]} chars
  * @return {number}
  */
+
 const compress = function (chars) {
   let s = '';
   let count = 0;
@@ -870,4 +881,3 @@ const isUgly = function (n) {
 
   return true;
 };
-console.log(isUgly(6));
