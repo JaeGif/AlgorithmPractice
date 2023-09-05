@@ -882,3 +882,30 @@ const isUgly = function (n) {
 
   return true;
 };
+
+/**
+ * 283. Move Zeroes
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const moveZeroes = function (nums) {
+  // nums = [0, 1, 0, 3, 13]
+  let leftPointer = 0;
+  let rightPointer = leftPointer + 1;
+
+  while (rightPointer <= nums.length - 1) {
+    if (nums[leftPointer] !== 0) {
+      leftPointer++;
+      rightPointer++;
+    } else {
+      if (nums[rightPointer] !== 0) {
+        [nums[leftPointer], nums[rightPointer]] = [
+          nums[rightPointer],
+          nums[leftPointer],
+        ];
+        leftPointer++;
+      }
+      rightPointer++;
+    }
+  }
+};
