@@ -824,4 +824,50 @@ const longestCommonPrefix = function (strs) {
   return commonStr;
 };
 
-console.log(longestCommonPrefix(['flower', 'flow', 'flight']));
+/**
+ * * LC 121 Best Time to Buy and Sell Stock
+ * @param {number[]} prices
+ * @return {number}
+ */
+
+const maxProfit = function (prices) {
+  let profit = 0;
+  let minVal = Infinity;
+  for (let i = 0; i < prices.length; i++) {
+    minVal = Math.min(minVal, prices[i]);
+    profit = Math.max(profit, prices[i] - minVal);
+  }
+  return profit;
+};
+
+// LC 2796 Repeat String
+String.prototype.replicate = function (times) {
+  let repeatedString = this.valueOf();
+  for (let i = 1; i < times; i++) {
+    repeatedString += this.valueOf();
+  }
+  return repeatedString;
+};
+/**
+ * 263. Ugly Number
+ * @param {number} n
+ * @return {boolean}
+ */
+const isUgly = function (n) {
+  if (n <= 0) return false;
+
+  while (n != 1) {
+    if (n % 2 === 0) {
+      n /= 2;
+    } else if (n % 3 === 0) {
+      n /= 3;
+    } else if (n % 5 === 0) {
+      n /= 5;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+};
+console.log(isUgly(6));
