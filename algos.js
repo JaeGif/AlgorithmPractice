@@ -316,13 +316,15 @@ const isPowerOfThree = function (n) {
 };
 
 // returns n + 1 every time the counter is called
-const createCounter = function (n) {
-  this.current = n - 1;
-  return function () {
-    this.current += 1;
-    return this.current;
-  };
-};
+class createCounter {
+  constructor(n) {
+    this.current = n - 1;
+    return function () {
+      this.current += 1;
+      return this.current;
+    };
+  }
+}
 
 /**
  * @param {number} millis
@@ -927,3 +929,19 @@ const timeLimit = function (fn, t) {
     return Promise.race([funcExec, funcRej]);
   };
 };
+
+/**
+ * 58. Length of Last Word
+ * @param {string} s
+ * @return {number}
+ */
+const lengthOfLastWord = function (s) {
+  const sArray = s.split(' ');
+  for (let i = sArray.length - 1; i >= 0; i--) {
+    if (sArray[i] !== '') {
+      return sArray[i].length;
+    }
+  }
+};
+
+console.log(lengthOfLastWord('hello how are you doing    '));
