@@ -944,4 +944,44 @@ const lengthOfLastWord = function (s) {
   }
 };
 
-console.log(lengthOfLastWord('hello how are you doing    '));
+/**
+ * 94. Binary Tree Inorder Traversal
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const inorderTraversal = function (root) {
+  let inorderArr = [];
+  const inorderResultToArr = function (root) {
+    if (root == null) return; // guard clause
+
+    if (root.left !== null) {
+      inorderResultToArr(root.left);
+    }
+    if (root.val !== undefined) {
+      inorderArr.push(root.val);
+    }
+    if (root.right !== null) {
+      inorderResultToArr(root.right);
+    }
+  };
+  inorderResultToArr(root);
+
+  return inorderArr;
+};
+
+/**
+ * 217. Contains Duplicate
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+const containsDuplicate = function (nums) {
+  return new Set(nums).size !== nums.length;
+};
