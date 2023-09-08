@@ -985,3 +985,32 @@ const inorderTraversal = function (root) {
 const containsDuplicate = function (nums) {
   return new Set(nums).size !== nums.length;
 };
+
+/**
+ * 242. Valid Anagram
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+const isAnagram = function (s, t) {
+  // true if t is an anagram of s, else false
+  // hashmap using letters as keys and count as values is pretty intuitive
+  let anagramHashMap = {};
+  for (let char of s) {
+    if (anagramHashMap[char]) anagramHashMap[char] += 1;
+    else anagramHashMap[char] = 1;
+  }
+  // now the hashmap is fully populated, need to cross reference t to the s map
+
+  for (let char of t) {
+    if (anagramHashMap[char]) anagramHashMap[char] -= 1;
+    else return false;
+  }
+
+  for (let char in anagramHashMap) {
+    if (anagramHashMap[char] !== 0) {
+      return false;
+    }
+  }
+  return true;
+};
