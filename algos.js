@@ -1014,3 +1014,22 @@ const isAnagram = function (s, t) {
   }
   return true;
 };
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ * 205. Isomorphic Strings
+ */
+
+const isIsomorphic = function (s, t) {
+  for (let i = 0; i < s.length; i++) {
+    // comparing shape, so indexOf will return the indices of the letters in question.
+    // This way, the letter doesn't matter but the index does. If it's in the same position, the indices will match
+
+    if (s.indexOf(s[i], i + 1) !== t.indexOf(t[i], i + 1)) {
+      return false;
+    }
+  }
+  return true;
+};
