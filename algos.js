@@ -1033,3 +1033,37 @@ const isIsomorphic = function (s, t) {
   }
   return true;
 };
+
+/**
+ * 290. Word Pattern
+ *
+ * @param {string} pattern
+ * @param {string} s
+ * @return {boolean}
+ */
+const wordPattern = function (pattern, s) {
+  //First of all, create an array contains words from s.
+  //And a template to track key value pairs (we use this a bit later)
+  const arr = s.split(' ');
+  let temp = {};
+
+  //Check if both has the same length and amount of unique charactors.
+  if (
+    arr.length !== pattern.length ||
+    new Set([...pattern]).size !== new Set(arr).size
+  )
+    return false;
+
+  //Iterate over the pattern.
+  //1.If template has not seen pattern before,
+  //add patter as key word as value.
+  //2. Else, compare, return false if key value do not match.
+  for (let i = 0; i < pattern.length; i++) {
+    if (!temp[pattern[i]]) {
+      temp[pattern[i]] = arr[i];
+    } else if (temp[pattern[i]] !== arr[i]) {
+      return false;
+    }
+  }
+  return true;
+};
