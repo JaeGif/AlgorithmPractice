@@ -1070,13 +1070,13 @@ const wordPattern = function (pattern, s) {
 
 /**
  * LC 42. Trapping Rainwater
+ * This solution works for small enough numbers
  * @param {number[]} height
  * @return {number}
  */
 // in order for water to be trapped, there needs to be a valley
 // "valley" === left, right are > 0, AND that center is <= left && right
 //  depth is defined by whichever side (left or right) is smaller
-height = [4, 2, 0, 3, 2, 5];
 const trap = function (height) {
   let unitsTrapped = 0;
   const maxDepth = Math.max(...height);
@@ -1127,4 +1127,23 @@ const trap = function (height) {
   return unitsTrapped;
 };
 
-console.log('units of rain', trap(height));
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * 35. Search Insert Position
+ */
+const searchInsert = function (nums, target) {
+  let lo = 0,
+    hi = nums.length; // we might need to inseart at the end
+  while (lo < hi) {
+    // breaks if lo == hi
+    let mid = lo + Math.floor((hi - lo) / 2); // always gives the lower mid
+    if (target > nums[mid]) {
+      lo = mid + 1; // no way mid is a valid option
+    } else {
+      hi = mid; // it might be possibe to inseart @ mid
+    }
+  }
+  return lo;
+};
