@@ -1044,8 +1044,8 @@ const isIsomorphic = function (s, t) {
 const wordPattern = function (pattern, s) {
   //First of all, create an array contains words from s.
   //And a template to track key value pairs (we use this a bit later)
-  const arr = s.split(' ');
-  let temp = {};
+  const arr = s.split(' '),
+    temp = {};
 
   //Check if both has the same length and amount of unique charactors.
   if (
@@ -1067,3 +1067,64 @@ const wordPattern = function (pattern, s) {
   }
   return true;
 };
+
+/**
+ * LC 42. Trapping Rainwater
+ * @param {number[]} height
+ * @return {number}
+ */
+// in order for water to be trapped, there needs to be a valley
+// "valley" === left, right are > 0, AND that center is <= left && right
+//  depth is defined by whichever side (left or right) is smaller
+height = [4, 2, 0, 3, 2, 5];
+const trap = function (height) {
+  let unitsTrapped = 0;
+  const maxDepth = Math.max(...height);
+  let depth = 1;
+  // if this is +, right > left
+  // if this is - left > right
+  // the abs value is what matters.
+  while (depth <= maxDepth) {
+    let left = 0;
+    let right = 1;
+    // Try a bottom up approach.
+    // first go through the max depth of 1. subtract 1 from every index of height, (if the element is !== 0)
+    while (right <= height.length - 1) {
+      if (height[left] > 0 && height[right] > 0) {
+        if (right - left > 1) {
+          // valley identified, evaluate
+          unitsTrapped += right - left - 1;
+          left = right;
+          right++;
+        } else {
+          left++; // double check here
+          right++;
+          continue;
+        }
+      }
+      if (height[left] === 0) {
+        left++;
+        if (right - left <= 1) {
+          right++;
+          continue;
+        }
+      }
+      if (height[right] === 0) {
+        right++;
+        continue;
+      }
+    }
+    // first do stuff, then reduce height and try again
+    height = height.map((el) => {
+      if (el !== 0) {
+        return el - 1;
+      }
+      return el;
+    });
+    depth++;
+  }
+
+  return unitsTrapped;
+};
+
+console.log('units of rain', trap(height));
