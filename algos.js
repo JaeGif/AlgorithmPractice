@@ -398,8 +398,8 @@ const hasCycle = function (head) {
  * @return {number[]}
  */
 var plusOne = function (digits) {
-  let inc = [digits[digits.length - 1] + 1];
-  if (inc === [10]) {
+  let inc = digits[digits.length - 1] + 1;
+  if (inc === 10) {
     inc = [1, 0];
   }
 
@@ -1176,4 +1176,24 @@ var addBinary = function (a, b) {
     result = '1' + result;
   }
   return result;
+};
+
+/**
+ * LC 55. Jump Game
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+const canJump = function (nums) {
+  if (nums.length <= 1) return true;
+  let maximum = nums[0];
+  // goes through the full loop just to be sure, but sends maximum ahead as a best guess.
+  // This is a Greedy algorithj
+  for (let i = 0; i < nums.length; i++) {
+    if (maximum <= i && nums[i] === 0) return false;
+    if (i + nums[i] > maximum) {
+      maximum = i + nums[i];
+    }
+    if (maximum >= nums.length - 1) return true;
+  }
+  return false;
 };
