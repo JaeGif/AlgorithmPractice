@@ -1197,3 +1197,30 @@ const canJump = function (nums) {
   }
   return false;
 };
+
+/**
+ * LC 83. Remove Duplicates from Sorted List
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * Remove all duplicates from a sorted linked list
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const deleteDuplicates = function (head) {
+  if (head == null || head.next == null) return head;
+  let current = head;
+  while (current.next != null && current != null) {
+    if (current.val === current.next.val) {
+      // resolve next node
+      current.next = current.next.next;
+    } else {
+      current = current.next;
+    }
+  }
+  return head;
+};
