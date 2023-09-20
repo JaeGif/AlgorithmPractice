@@ -1263,3 +1263,19 @@ const isSubsequence = function (s, t) {
   }
   return sub === s.length;
 };
+
+/**
+ * 11. Container With Most Water
+ * @param {number[]} height
+ * @return {number}
+ */
+const maxArea = function (height) {
+  let ans = 0,
+    i = 0,
+    j = height.length - 1;
+  while (i < j) {
+    ans = Math.max(ans, Math.min(height[i], height[j]) * (j - i));
+    height[i] <= height[j] ? i++ : j--;
+  }
+  return ans;
+};
