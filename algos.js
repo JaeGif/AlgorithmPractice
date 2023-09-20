@@ -1247,3 +1247,19 @@ const addTwoNumbers = function (l1, l2) {
   };
   return iter(l1, l2);
 };
+
+/**
+ * LC 392. Is Subsequence
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+const isSubsequence = function (s, t) {
+  // if s is a sub of t return true.
+  if (s.length > t.length) return false;
+  let sub = 0;
+  for (let i = 0; i < t.length; i++) {
+    if (s[sub] === t[i]) sub++;
+  }
+  return sub === s.length;
+};
