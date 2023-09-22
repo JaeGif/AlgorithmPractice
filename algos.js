@@ -1321,3 +1321,24 @@ const findMedianSortedArrays = function (nums1, nums2) {
     }
   }
 };
+
+/**
+ * 7. Reverse Integer
+ * @param {number} x
+ * @return {number}
+ */
+const reverse = function (x) {
+  let mutatedInt = x.toString().split('').reverse().join('');
+  if (
+    parseInt(mutatedInt) < Math.pow(2, 31) * -1 ||
+    parseInt(mutatedInt) > Math.pow(2, 31) - 1
+  )
+    return 0;
+  if (mutatedInt[mutatedInt.length - 1] === '-')
+    mutatedInt = parseInt(mutatedInt) * -1;
+  else mutatedInt = parseInt(mutatedInt);
+
+  return mutatedInt;
+};
+
+reverse(-123);
