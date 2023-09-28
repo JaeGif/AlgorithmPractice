@@ -1388,3 +1388,23 @@ const largestAltitude = function (gain) {
   }
   return Math.max(...temp);
 };
+
+/**
+ * 724. Find Pivot Index
+ * @param {number[]} nums
+ * @return {number}
+ */
+const pivotIndex = function (nums) {
+  let totalSum = 0;
+  let leftSum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    totalSum += nums[i];
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (leftSum === totalSum - leftSum - nums[i]) {
+      return i;
+    }
+    leftSum += nums[i];
+  }
+  return -1;
+};
