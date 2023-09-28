@@ -1341,4 +1341,35 @@ const reverse = function (x) {
   return mutatedInt;
 };
 
-reverse(-123);
+/**
+ * @param {null|boolean|number|string|Array|Object} object
+ * @return {string}
+ * return JSON.stringify(object) is the easy solution
+ */
+
+// recursively call on each element
+
+const jsonStringify = function (object) {
+  switch (typeof object) {
+    case 'object':
+      if (Array.isArray(object)) {
+        const elements = object.map((element) => jsonStringify(element));
+        return `[${elements.join(',')}]`;
+      } else if (object) {
+        const keys = Object.keys(object);
+        const keyValuePairs = keys.map(
+          (key) => `"${key}":${jsonStringify(object[key])}`
+        );
+        return `{${keyValuePairs.join(',')}}`;
+      } else {
+        return 'null';
+      }
+    case 'boolean':
+    case 'number':
+      return `${object}`;
+    case 'string':
+      return `"${object}"`;
+    default:
+      return '';
+  }
+};
