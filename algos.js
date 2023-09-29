@@ -1497,31 +1497,3 @@ const sumPrimeNumbersSieve = function (range) {
   }
   return sum;
 };
-/* function sumPrimes(num) {
-  let array = [];
-  let output = 0;
-
-  // Fill an array of boolean with 'true' from 2 to n.
-  for (let i = 0; i <= num; i++) {
-    array.push(true);
-  }
-
-  // Set all multiples of primes to 'false' in the array.
-  for (let i = 2; i <= Math.sqrt(num); i++) {
-    if (array[i]) {
-      for (let j = i * i; j <= num; j += i) {
-        array[j] = false;
-      }
-    }
-  }
-
-  // All array[i] set to 'true' are primes, so we just need to add them all.
-  for (var i = 2; i <= num; i++) {
-    if (array[i]) {
-      output += i;
-    }
-  }
-
-  return output;
-} */
-console.log(sumPrimeNumbersSieve(10000000));
