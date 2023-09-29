@@ -1408,3 +1408,120 @@ const pivotIndex = function (nums) {
   }
   return -1;
 };
+
+/**
+ * LC 539. Minimum Time Difference
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+
+const timePoints = ['23:59', '00:00', '00:00'];
+
+// 24 hrs ==> 1440
+
+const findMinDifference = function (timePoints) {
+  let minutesArray = timePoints
+    .map((timestamp) => {
+      // 'timestamp is 'HH:MM', need to convert hrs to minutes, add the remaining minutes for each element
+      // ['HH', 'MM']
+      timestamp = timestamp.split(':');
+      // this gives total minutes per entry
+      return Number(timestamp[0]) * 60 + Number(timestamp[1]);
+      // --> timePoints == [1439, 0]
+    })
+    .sort((a, b) => a - b);
+  // nlogN + n --> NlogN
+  minutesArray.push(minutesArray[0] + 1440);
+
+  let min = 1440;
+
+  for (let i = 1; i < minutesArray.length; i++) {
+    min = Math.min(min, minutesArray[i] - minutesArray[i - 1]);
+  }
+  return min;
+  //
+};
+
+/**
+ * @param {number} range
+ * @return {string}
+ */
+
+const fizzBuzzRange = function (range) {
+  for (let i = 1; i <= range; i++) {
+    let result = '';
+    // starts from 1, goes through whole range INCLUSIVE
+    if (i % 3 === 0) result += 'Fizz';
+    if (i % 5 === 0) result += 'Buzz';
+  }
+};
+
+/**
+ * @param {number} range
+ * @return {number}
+ */
+const sumPrimeNumbersInRange = function (range) {
+  let sum = 0;
+  const isPrime = (value) => {
+    for (let i = 2; i <= value / 2; i++) {
+      if (value % i === 0) return false;
+    }
+    return true;
+  };
+
+  for (let i = 2; i < range; i++) {
+    if (isPrime(i)) sum += i;
+  }
+  return sum;
+};
+
+/**
+ * @param {number} range
+ * @return {number}
+ */
+const sumPrimeNumbersSieve = function (range) {
+  let sum = 0;
+  let isPrime = new Array(range).fill(true);
+  isPrime[0] = isPrime[1] = false;
+
+  for (let i = 2; i <= Math.sqrt(range); i++) {
+    if (isPrime[i]) {
+      for (let j = i * i; j <= range; j += i) {
+        isPrime[j] = false;
+      }
+    }
+  }
+
+  for (let i = 2; i <= range; i++) {
+    if (isPrime[i]) sum += i;
+  }
+  return sum;
+};
+/* function sumPrimes(num) {
+  let array = [];
+  let output = 0;
+
+  // Fill an array of boolean with 'true' from 2 to n.
+  for (let i = 0; i <= num; i++) {
+    array.push(true);
+  }
+
+  // Set all multiples of primes to 'false' in the array.
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (array[i]) {
+      for (let j = i * i; j <= num; j += i) {
+        array[j] = false;
+      }
+    }
+  }
+
+  // All array[i] set to 'true' are primes, so we just need to add them all.
+  for (var i = 2; i <= num; i++) {
+    if (array[i]) {
+      output += i;
+    }
+  }
+
+  return output;
+} */
+console.log(sumPrimeNumbersSieve(10000000));
