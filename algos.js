@@ -1415,8 +1415,6 @@ const pivotIndex = function (nums) {
  * @return {number}
  */
 
-const timePoints = ['23:59', '00:00', '00:00'];
-
 // 24 hrs ==> 1440
 
 const findMinDifference = function (timePoints) {
@@ -1496,4 +1494,65 @@ const sumPrimeNumbersSieve = function (range) {
     if (isPrime[i]) sum += i;
   }
   return sum;
+};
+
+// Attempt solve pair programming problem min time between timestamps where time is in format 'HH:MM'
+
+// convert timestamps to minutes so we can compare them easily
+// 0 -> 5 -> 15 -> 500 -> 1439
+// to keep track of delta, we sort and track a minimum value.
+// For each new time gap, we compare the minimum value to the new timegap. If the new gap is smaller than min, replace.
+// return value is in minutes, don't convert it back.
+
+// timestamps is string[]
+/**
+ * LC 539. Minimum Time Difference
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+const timePoints = [];
+const minimumMinutesBetweenTimestamps = (timePoints) => {
+  // convert to minutes string -> number
+  if (timePoints.length === 0) throw new Error('Empty array');
+  for (let i = 0; i < timePoints.length; i++) {
+    // hours to mintues  HH * 60 + MM -> total minutes
+    // 'HH:MM'
+    // 0 ... ... .. .. .. ... 1400 1439 --> 1
+    const [hours, minutes] = timePoints[i].split(':');
+    const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
+    timePoints[i] = totalMinutes;
+  }
+  // O(n)
+
+  // sort non-decreasing order
+  timePoints.sort((a, b) => a - b); // TimeSort, MergeSort nlog(n)
+
+  timePoints.push(timePoints[0] + 1440);
+
+  let min = 1439;
+
+  for (let i = 1; i < timePoints.length; i++) {
+    min = Math.min(min, timePoints[i] - timePoints[i - 1]);
+  }
+  return min;
+};
+
+/**
+ * 219. Contains Duplicate II
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+const containsNearbyDuplicate = function (nums, k) {
+  // k is the spread between elements
+  // nums is a number array to iterate across.
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j <= i + k; j++) {
+      if (nums[i] == nums[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
 };
