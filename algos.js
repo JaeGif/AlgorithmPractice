@@ -1546,7 +1546,6 @@ const minimumMinutesBetweenTimestamps = (timePoints) => {
   }
   return [points, min];
 };
-console.log(minimumMinutesBetweenTimestamps(['14:32', '15:23', '23:59']));
 /**
  * 219. Contains Duplicate II
  * @param {number[]} nums
@@ -1582,3 +1581,36 @@ const fibGenerator = function* () {
     a = b - a;
   }
 };
+
+/**
+ * 2215. Find the Difference of Two Arrays
+
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[][]}
+ */
+const findDifference = function (nums1, nums2) {
+  // hashmap
+
+  let nums1Set = new Set(nums1); // O(N)
+  let nums2Set = new Set(nums2);
+  let nums1Distinct = Array.from(nums1Set); // O(N)
+  let nums2Distinct = Array.from(nums2Set);
+
+  let nums1DistinctResult = [];
+  let nums2DistinctResult = [];
+
+  for (let i = 0; i < nums1Distinct.length; i++) {
+    if (!nums2Set.has(nums1Distinct[i]))
+      // O(1)
+      nums1DistinctResult.push(nums1Distinct[i]);
+  }
+  for (let i = 0; i < nums2Distinct.length; i++) {
+    if (!nums1Set.has(nums2Distinct[i]))
+      nums2DistinctResult.push(nums2Distinct[i]);
+  }
+
+  return [nums1DistinctResult, nums2DistinctResult];
+};
+
+console.log(findDifference([1, 2, 3, 3], [1, 1, 2, 2]));
