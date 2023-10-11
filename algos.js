@@ -1510,7 +1510,6 @@ const sumPrimeNumbersSieve = function (range) {
  * @param {string[]} timePoints
  * @return {number}
  */
-const timePoints = [];
 const minimumMinutesBetweenTimestamps = (timePoints) => {
   // convert to minutes string -> number
   if (timePoints.length === 0) throw new Error('Empty array');
@@ -1555,4 +1554,19 @@ const containsNearbyDuplicate = function (nums, k) {
     }
   }
   return false;
+};
+
+/**
+ * @return {Generator<number>}
+ */
+// next number in the sequence is eequal to the previous 2 numbers combined
+// 0 1 1 2 3 5 8 ...
+const fibGenerator = function* () {
+  let a = 0,
+    b = 1;
+  while (true) {
+    yield a;
+    b = a + b;
+    a = b - a;
+  }
 };
