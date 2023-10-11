@@ -1557,6 +1557,7 @@ const containsNearbyDuplicate = function (nums, k) {
 };
 
 /**
+ * 2648. Generate Fibonacci Sequence
  * @return {Generator<number>}
  */
 // next number in the sequence is eequal to the previous 2 numbers combined
