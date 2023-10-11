@@ -1525,17 +1525,28 @@ const minimumMinutesBetweenTimestamps = (timePoints) => {
 
   // sort non-decreasing order
   timePoints.sort((a, b) => a - b); // TimeSort, MergeSort nlog(n)
-
   timePoints.push(timePoints[0] + 1440);
 
   let min = 1439;
+  let points = [];
 
   for (let i = 1; i < timePoints.length; i++) {
-    min = Math.min(min, timePoints[i] - timePoints[i - 1]);
+    const delta = Math.min(min, timePoints[i] - timePoints[i - 1]);
+    if (min > delta) {
+      min = delta;
+      points = [timePoints[i], timePoints[i - 1]];
+    }
   }
-  return min;
+  // minutes number / 60 , minutes number % 60
+  for (let i = 0; i < points.length; i++) {
+    if (points[i] > 24 * 60) points[i] = points[i] - 24 * 60;
+    const hours = Math.floor(points[i] / 60);
+    const minutes = points[i] % 60;
+    points[i] = `${hours}:${minutes}`;
+  }
+  return [points, min];
 };
-
+console.log(minimumMinutesBetweenTimestamps(['14:32', '15:23', '23:59']));
 /**
  * 219. Contains Duplicate II
  * @param {number[]} nums
