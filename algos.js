@@ -1496,56 +1496,6 @@ const sumPrimeNumbersSieve = function (range) {
   return sum;
 };
 
-// Attempt solve pair programming problem min time between timestamps where time is in format 'HH:MM'
-
-// convert timestamps to minutes so we can compare them easily
-// 0 -> 5 -> 15 -> 500 -> 1439
-// to keep track of delta, we sort and track a minimum value.
-// For each new time gap, we compare the minimum value to the new timegap. If the new gap is smaller than min, replace.
-// return value is in minutes, don't convert it back.
-
-// timestamps is string[]
-/**
- * LC 539. Minimum Time Difference
- * @param {string[]} timePoints
- * @return {number}
- */
-const minimumMinutesBetweenTimestamps = (timePoints) => {
-  // convert to minutes string -> number
-  if (timePoints.length === 0) throw new Error('Empty array');
-  for (let i = 0; i < timePoints.length; i++) {
-    // hours to mintues  HH * 60 + MM -> total minutes
-    // 'HH:MM'
-    // 0 ... ... .. .. .. ... 1400 1439 --> 1
-    const [hours, minutes] = timePoints[i].split(':');
-    const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-    timePoints[i] = totalMinutes;
-  }
-  // O(n)
-
-  // sort non-decreasing order
-  timePoints.sort((a, b) => a - b); // TimeSort, MergeSort nlog(n)
-  timePoints.push(timePoints[0] + 1440);
-
-  let min = 1439;
-  let points = [];
-
-  for (let i = 1; i < timePoints.length; i++) {
-    const delta = Math.min(min, timePoints[i] - timePoints[i - 1]);
-    if (min > delta) {
-      min = delta;
-      points = [timePoints[i], timePoints[i - 1]];
-    }
-  }
-  // minutes number / 60 , minutes number % 60
-  for (let i = 0; i < points.length; i++) {
-    if (points[i] > 24 * 60) points[i] = points[i] - 24 * 60;
-    const hours = Math.floor(points[i] / 60);
-    const minutes = points[i] % 60;
-    points[i] = `${hours}:${minutes}`;
-  }
-  return [points, min];
-};
 /**
  * 219. Contains Duplicate II
  * @param {number[]} nums
@@ -1613,4 +1563,31 @@ const findDifference = function (nums1, nums2) {
   return [nums1DistinctResult, nums2DistinctResult];
 };
 
-console.log(findDifference([1, 2, 3, 3], [1, 1, 2, 2]));
+//
+
+const countPrimeNumbersInRange = (upper) => {
+  // return how many prime numbers exist from 1 to the end of the range
+  // a number is prime if it's ONLY divisible by itself, and 1
+  // 1 NO
+  // 2 YES
+  // 3 YES
+  // 4 NO
+  let count = 0;
+  if (upper === 1 || upper === 0) return 0;
+  if (upper >= 2) count++;
+
+  for (let i = 3; i <= upper; i += 2) {
+    if (isPrime(i)) count++;
+  }
+  return count;
+};
+
+const isPrime = (value) => {
+  // any even number is NOT prime (except 2)
+  if (value === 3) return true;
+  for (let i = 3; i < value / 2; i += 2) {
+    // value % i === 0
+    if (value % i === 0) return false;
+  }
+  return true;
+};
