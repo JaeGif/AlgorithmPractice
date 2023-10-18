@@ -1591,3 +1591,16 @@ const isPrime = (value) => {
   }
   return true;
 };
+
+/**
+ * 1207. Unique Number of Occurrences
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+const uniqueOccurrences = function (arr) {
+  let map = new Map();
+  let i = arr.length;
+  while (--i >= 0) map.set(arr[i], map.get(arr[i]) + 1 || 1);
+  let set = new Set(map.values());
+  return set.size === map.size;
+};
