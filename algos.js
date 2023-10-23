@@ -1604,3 +1604,49 @@ const uniqueOccurrences = function (arr) {
   let set = new Set(map.values());
   return set.size === map.size;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * 160. Intersection of Two Linked Lists
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ * 2 Lists intersect if they have the same value and the same Next Node NOT the same current node
+ * hash table implementation is probably the best
+ */
+const getIntersectionNode = function (headA, headB) {
+  // iterate through each list one step at a time, compare in the table and continue
+  // building a hashtable is O(1) for each element added, over N items in list 2, gives O(N)
+  let currentA = headA;
+  let currentB = headB;
+  let hashTableB = {};
+  while (currentB) {
+    hashTableB[currentB.val] = currentB;
+    currentB = currentB.next;
+  }
+  while (currentA) {
+    if (hashTableB[currentA.val] === currentA) {
+      return currentA;
+    } else {
+      currentA = currentA.next;
+    }
+  }
+  return null;
+};
+
+const betterGetIntersectionNode = function (headA, headB) {
+  let a = headA,
+    b = headB;
+  while (a !== b) {
+    a = !a ? headB : a.next;
+    b = !b ? headA : b.next;
+  }
+  return a;
+};
