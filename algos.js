@@ -1624,6 +1624,7 @@ const uniqueOccurrences = function (arr) {
 const getIntersectionNode = function (headA, headB) {
   // iterate through each list one step at a time, compare in the table and continue
   // building a hashtable is O(1) for each element added, over N items in list 2, gives O(N)
+  // fill out the hash table and compare, good solution
   let currentA = headA;
   let currentB = headB;
   let hashTableB = {};
@@ -1642,6 +1643,7 @@ const getIntersectionNode = function (headA, headB) {
 };
 
 const betterGetIntersectionNode = function (headA, headB) {
+  // consice solution
   let a = headA,
     b = headB;
   while (a !== b) {
