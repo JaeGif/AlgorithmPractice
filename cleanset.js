@@ -35,5 +35,3 @@ const removeDuplicates = function (nums) {
   }
   return nums.length;
 };
-nums = [1, 1, 2];
-console.log(removeDuplicates(nums));
