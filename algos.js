@@ -1697,7 +1697,23 @@ class MovingAverage {
 }
 
 /**
- * Your MovingAverage object will be instantiated and called as such:
- * var obj = new MovingAverage(size)
- * var param_1 = obj.next(val)
+ * 1491. Average Salary Excluding the Minimum and Maximum Salary
+ * @param {number[]} salary
+ * @return {number}
  */
+const average = function (salary) {
+  // run a total, track the min, track the max, when the array terminates, subtract the max and min values, and average using salary.length - 2 (excluding the min and max values)
+  let total = 0;
+  let min = Infinity;
+  let max = 0;
+
+  for (let i = 0; i < salary.length; i++) {
+    total += salary[i];
+    min = Math.min(min, salary[i]);
+    max = Math.max(max, salary[i]);
+  }
+
+  total = total - min - max;
+
+  return total / (salary.length - 2);
+};
