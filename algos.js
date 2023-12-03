@@ -1674,3 +1674,30 @@ const rotate = function (nums, k) {
   reverse(0, k - 1); // reverse first part ---><----
   reverse(k, nums.length - 1); // reverse second part --->----->
 };
+
+/* 
+ LC 346. Moving Average from Data Stream
+ */
+class MovingAverage {
+  constructor(size) {
+    this.size = size;
+    this.array = [];
+    this.sum = 0;
+  }
+
+  next(val) {
+    if (this.array.length === this.size) {
+      this.sum -= this.array.shift();
+    }
+    this.array.push(val);
+    this.sum += val;
+
+    return this.sum / this.array.length;
+  }
+}
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * var obj = new MovingAverage(size)
+ * var param_1 = obj.next(val)
+ */
