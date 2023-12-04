@@ -1717,3 +1717,27 @@ const average = function (salary) {
 
   return total / (salary.length - 2);
 };
+
+/**
+ * 2455. Average Value of Even Numbers That Are Divisible by Three
+
+ * @param {number[]} nums
+ * @return {number}
+ */
+const averageValue = function (nums) {
+  // if the element is divisible by 3; do math
+  // else continue
+  // keep a count to average the values
+  let total = 0;
+  let count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] % 3 === 0 && nums[i] % 2 === 0) {
+      // is divisble by 3 evenly
+      // inc count, add to total
+      count++;
+      total += nums[i];
+    }
+  }
+
+  return count === 0 ? total : Math.floor(total / count);
+};
