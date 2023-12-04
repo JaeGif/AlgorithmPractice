@@ -1720,7 +1720,6 @@ const average = function (salary) {
 
 /**
  * 2455. Average Value of Even Numbers That Are Divisible by Three
-
  * @param {number[]} nums
  * @return {number}
  */
@@ -1741,3 +1740,27 @@ const averageValue = function (nums) {
 
   return count === 0 ? total : Math.floor(total / count);
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const distinctAverages = function (nums) {
+  // find min and max on every iteration
+  nums.sort((a, b) => a - b);
+  let table = {};
+  let count = 0;
+  while (nums.length > 0) {
+    const max = nums.pop();
+    const min = nums.shift();
+
+    const average = (max + min) / 2;
+    if (!table[average]) {
+      count++;
+      table[average] = 1;
+    }
+  }
+  return count;
+};
+
+console.log(distinctAverages([9, 5, 7, 8, 7, 9, 8, 2, 0, 7]));
