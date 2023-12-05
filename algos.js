@@ -1762,5 +1762,3 @@ const distinctAverages = function (nums) {
   }
   return count;
 };
-
-console.log(distinctAverages([9, 5, 7, 8, 7, 9, 8, 2, 0, 7]));
