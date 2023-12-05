@@ -193,7 +193,36 @@ class Solution:
                 if sPointer >= len(s):
                     return True
             return False
-solution = Solution().isSubsequence('abc', 'ahbgdc')
+    
+    def threeSum(self, nums):
+        # i, j and k cannot be the same
+        # i + j + k = 0
+        # [i, j, k] != other elements in the returned tuple
+        # return ALL matching triplets
+        res = []
+        nums.sort()
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i - 1] != nums[i]:
+                lo, hi = i + 1, len(nums) - 1
+                while (lo < hi):
+                    sum = nums[i] + nums[lo] + nums[hi]
+                    if sum < 0:
+                        lo += 1
+                    elif sum > 0:
+                        hi -= 1
+                    else:
+                        res.append([nums[i], nums[lo], nums[hi]])
+                        lo += 1
+                        hi -= 1
+                        while lo < hi and nums[lo] == nums[lo - 1]:
+                            lo += 1
+        return res
+
+    
+
+solution = Solution().threeSum([1, 2, -1, -2, 0, 2])
 # O(1)
 
 print(solution)
