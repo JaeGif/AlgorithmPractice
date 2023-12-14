@@ -1678,7 +1678,7 @@ const rotate = function (nums, k) {
 /* 
  LC 346. Moving Average from Data Stream
  */
-class MovingAverage {
+class MovingAverage1 {
   constructor(size) {
     this.size = size;
     this.array = [];
@@ -1762,3 +1762,182 @@ const distinctAverages = function (nums) {
   }
   return count;
 };
+
+class MovingAverage2 {
+  constructor(windowSize) {
+    this.windowSize = windowSize;
+    this.runningSum = 0;
+    this.queue = Array(windowSize).fill(0);
+    this.count = 0;
+    this.head = 0;
+  }
+  add(val) {
+    // FIFO
+    if (typeof val !== 'number') return;
+    this.count++;
+    const tail = (this.head + 1) % this.windowSize;
+    this.runningSum = this.runningSum - this.queue[tail] + val;
+
+    this.head = (this.head + 1) % this.windowSize;
+    this.queue[this.head] = val;
+  }
+
+  getAverage() {
+    // undefined --> things that will/should have a value, but currently dont
+    // null --> things that are definitely not defined
+    if (this.count === 0 || this.windowSize === 0) return;
+    return this.runningSum / Math.min(this.count, this.windowSize); // -> O(1) TC
+  }
+}
+
+// windowSize = 3
+// [1, , ] --> calculating the average is not always based on window size, rather els in queue
+// [1, 2, ]
+// [1, 2, 3]
+// 1 [2, 3, 4] FIFO with a fixed size --> queue
+
+class MovingAverage {
+  constructor(windowSize) {
+    this.windowSize = windowSize;
+    this.queue = Array(windowSize).fill(0);
+    this.count = 0;
+    this.runningSum = 0;
+    this.head = 0;
+  }
+  // [0, 0, 0]
+  add(val) {
+    if (this.windowSize === 0) return;
+    this.count++;
+
+    const tail = (this.head + 1) % this.windowSize;
+    this.runningSum = this.runningSum - this.queue[tail] + val;
+    // move to the next head
+    this.head = tail;
+    this.queue[this.head] = val;
+  }
+
+  getAverage() {
+    // return the average in the window
+    if (this.count === 0 || this.windowSize === 0) return;
+    return this.runningSum / Math.min(this.count, this.windowSize); // --> O(1) TC
+  }
+}
+
+// param true means a board is currently underneath it
+// false no board under
+
+// incoming board: true false
+// exiting board: false true
+// 5ft: true true
+// 3ft: true false | false true
+// no board: false false
+
+// need to track the static state of the function
+
+// sensors are 4ft apart
+// boards are 5ft / 3ft
+// distance between boards is minimum 4.5ft
+// follow up mod, what if the distance between boards is smaller, say 1.5ft
+// only 1x 5ft boards can pass through with that space at a time.
+
+class BoardCounter {
+  static #prevState0 = false;
+  static #prevState1 = false;
+  static #boardCount = 0;
+  static count(s0, s1) {
+    // purpose of this function is to update our counters and prev states
+    // first check prev state
+    // 5ft: true true
+    // 3ft: true false | false true
+    // no board: false false
+    // incoming board: true false
+    if (!this.#prevState1 && s1) {
+      // if a board is leaving count based on tripped sensors currently
+      if (this.#boardCount === 1 && s0) {
+        count5++;
+      } else {
+        count3++;
+      }
+      this.#boardCount--;
+    }
+    if (!this.#prevState0 && s0) {
+      this.#boardCount++;
+    }
+    // update new states at the end
+    this.prevState0 = s0;
+    this.prevState1 = s1;
+  }
+}
+// if 1.5ft spacing, both sensors could be occupied without being a 5ft board
+// truth tables are
+// incoming board: true false
+// 5ft passing through: true true ONLY IF PREV STATE WAS TRUE FALSE
+// 3ft passing through would trip: true false -> false false -> false true -> false false
+// 5ft followed by a 3 ft: true false -> true true -> false true -> true true
+// with a spacing of 4.5ft, there will always be a reset of false | false readings between boards
+/* BoardCounter.boardCounterIIFE(true, false);
+BoardCounter.boardCounterIIFE(false, false);
+BoardCounter.boardCounterIIFE(false, true);
+BoardCounter.boardCounterIIFE(false, false);
+
+BoardCounter.boardCounterIIFE(true, false);
+BoardCounter.boardCounterIIFE(true, true);
+BoardCounter.boardCounterIIFE(false, true);
+BoardCounter.boardCounterIIFE(false, false);
+console.log(count3, count5);
+BoardCounter.prevState0 = true; */
+
+// static class: wayy more readable for people who don't live in JS-land
+// The JS way. (Must be a function way)
+
+// IIFE | module design pattern JS. This is a special attack from JS-land
+// that might not be particularly readable to people who aren't moderately versed in the dark arts of ES6+
+// I think the class based solution with a singleton might be better simply because of general readability
+
+let count3 = 0;
+let count5 = 0;
+const boardCounterIIFE = (function () {
+  let _boardCount = 0;
+  let _prevState0 = false;
+  let _prevState1 = false;
+
+  // purpose of this function is to update our counters and prev states
+  // first check prev state
+  // 5ft: true true
+  // 3ft: true false | false true
+  // no board: false false
+  // incoming board: true false
+  function count(s0, s1) {
+    if (!_prevState1 && s1) {
+      // if a board is leaving count based on tripped sensors currently
+      if (_boardCount === 1 && s0) {
+        count5++;
+      } else {
+        count3++;
+      }
+      _boardCount--;
+      console.log(count3, count5);
+    }
+    if (!_prevState0 && s0) {
+      _boardCount++;
+    }
+    // update new states at the end
+    _prevState0 = s0;
+    _prevState1 = s1;
+  }
+
+  return (s0, s1) => count(s0, s1);
+})();
+
+console.log(count3, count5);
+boardCounterIIFE(true, false);
+boardCounterIIFE(false, false);
+boardCounterIIFE(false, true);
+boardCounterIIFE(false, false);
+
+boardCounterIIFE(true, false);
+boardCounterIIFE(true, true);
+boardCounterIIFE(false, true);
+boardCounterIIFE(false, false);
+
+console.log(count3, count5);
