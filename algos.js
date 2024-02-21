@@ -1839,6 +1839,8 @@ class MovingAverage {
 // distance between boards is minimum 4.5ft
 // follow up mod, what if the distance between boards is smaller, say 1.5ft
 // only 1x 5ft boards can pass through with that space at a time.
+let count3 = 0;
+let count5 = 0;
 
 class BoardCounter {
   static #prevState0 = false;
@@ -1894,8 +1896,6 @@ BoardCounter.prevState0 = true; */
 // that might not be particularly readable to people who aren't moderately versed in the dark arts of ES6+
 // I think the class based solution with a singleton might be better simply because of general readability
 
-let count3 = 0;
-let count5 = 0;
 const boardCounterIIFE = (function () {
   let _boardCount = 0;
   let _prevState0 = false;
@@ -1929,15 +1929,54 @@ const boardCounterIIFE = (function () {
   return (s0, s1) => count(s0, s1);
 })();
 
-console.log(count3, count5);
-boardCounterIIFE(true, false);
-boardCounterIIFE(false, false);
-boardCounterIIFE(false, true);
-boardCounterIIFE(false, false);
+/**
+ * 17. Letter Combinations of a Phone Number
+ * @param {string} digits
+ * @return {string[]}
+ * Input: digits = "23"
+ * Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+ * 1: not possible
+ * 2: abc
+ * 3: def
+ * 4: ghi
+ * 5: jkl
+ * 6: mno
+ * 7: pqrs
+ * 8: tuv
+ * 9: wxyz
+ * 0: not possible
+ */
+const letterCombinations = function (digits) {
+  // Time O(3^N * 4^M)
+  //   N is the number of digits in the input that maps to 3 letters (e.g. 2, 3, 4, 5, 6, 8)
+  //   M is the number of digits in the input that maps to 4 letters (e.g. 7, 9)
+  //
+  // Space O(3^N * 4^M) since one has to keep O(3^N * 4^M) solutions.
+  if (digits == null || digits.length === 0) return [];
 
-boardCounterIIFE(true, false);
-boardCounterIIFE(true, true);
-boardCounterIIFE(false, true);
-boardCounterIIFE(false, false);
+  const map = {
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz',
+  };
 
-console.log(count3, count5);
+  const res = [];
+  const go = (i, s) => {
+    if (i === digits.length) {
+      res.push(s);
+      return;
+    }
+
+    for (const c of map[digits[i]]) {
+      go(i + 1, s + c);
+    }
+  };
+
+  go(0, '');
+  return res;
+};
