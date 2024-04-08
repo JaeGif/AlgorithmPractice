@@ -43,28 +43,17 @@ const removeDuplicates = function (nums) {
  * }
  */
 /**
+ * 2. Add Two Numbers
  * @param {ListNode} l1
  * @param {ListNode} l2
  * @return {ListNode}
  */
 const addTwoNumbers = function(l1, l2) {
-  // tail contains the first digit etc.
-  // reverse linked list, then traverse each node
-  // OR traverse linked list in order, and prepend each node
-  // in order traversal requies only 1 visit to each node,
-  // While reversal and in order traversal requires 2. 
-  let strl1 = ''
-  let strl2 = ''
-  const inOrderTraversal = (root, strList) => {
-    // prepend the value to the string
-    let current = root
-    let next;
-    while (current.next !== null) {
-    strList = current.val + strList
-    current = current.next
-    }
-    return strList
+  const iter = (n1, n2, rest = 0) => {
+      if (!n1 && !n2 && !rest) return null;
+      const newVal = (n1?.val || 0) + (n2?.val || 0) + rest;
+      const nextNode = iter(n1?.next, n2?.next, Math.floor(newVal / 10));
+      return new ListNode(newVal % 10, nextNode);
   }
-  return Number(inOrderTraversal(l1, strl1)) + Number(inOrderTraversal(l2, strl2))
-
+  return iter(l1, l2);
 };
