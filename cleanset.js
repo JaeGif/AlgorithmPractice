@@ -35,3 +35,76 @@ const removeDuplicates = function (nums) {
   }
   return nums.length;
 };
+
+// Write a function to calculate n!
+
+const factorial = function (n) {
+  // 5 * 4 * 3 * 2 * 1
+  // n --> starting value
+  // i: n - 1
+  // when n === 1 DONE
+  // DONE --> return final product
+  // solution 1 loop:: readable, more performant
+  // solution 2 recursion:: base case, careful of overhead, CAN BE more readable, if the iteration is very complex
+
+  let total = 1;
+  while (n > 1) {
+    total = total * n;
+    n = n - 1;
+  }
+  return total;
+};
+// O(n)
+// O(1)
+const recursiveFactorial = function (n) {
+  // 0 case
+  // base case n === 1
+  // overhead on big stack calls
+
+  // base case
+
+  if (n === 1 || n === 0) return 1; // O(1)
+  return n * recursiveFactorial(n - 1); // O(n)
+};
+
+// Space O(n)
+// Time O(n)
+
+// in place operation
+
+let arr = ['!', 'cake', 'that', 'good', 'me', 'give'];
+
+const inPlaceReversal = (arr) => {
+  // reverse the string array in place
+  // 0 --> arr.length - 1
+  // 1 --> arr.length - 2
+  // etc etc
+  // 2 pointer sol: hi lo
+  // [0, 1, 2, 3]
+  // hi === arr.length -1
+  // lo === 0
+  // ending case hi <= lo
+
+  let hi = arr.length - 1;
+  let lo = 0;
+  while (hi > lo) {
+    let tempLo = arr[lo];
+    arr[lo] = arr[hi];
+    arr[hi] = tempLo;
+    hi--;
+    lo++;
+  }
+  return arr;
+};
+
+const factorial2 = (n) => {
+  if (n < 0) return undefined;
+  let total = 1;
+  while (n > 1) {
+    total *= n;
+    n -= 1;
+  }
+  return total;
+};
+
+console.log(factorial2(-5));

@@ -2006,3 +2006,18 @@ const letterCombinations = function (digits) {
   go(0, '');
   return res;
 };
+
+/**
+ * 162. Find Peak Element
+ * Full solution requires O(logN) solution
+ * @param {number[]} nums
+ * @return {number}
+ */
+const findPeakElement = function (nums) {
+  // returns the index of an element that is larger than its neighbor
+
+  let pointer = 0;
+  while (next <= nums.length) {
+    nums[pointer];
+  }
+};c
