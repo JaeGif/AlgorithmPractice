@@ -316,13 +316,15 @@ const isPowerOfThree = function (n) {
 };
 
 // returns n + 1 every time the counter is called
-const createCounter = function (n) {
-  this.current = n - 1;
-  return function () {
-    this.current += 1;
-    return this.current;
-  };
-};
+class createCounter {
+  constructor(n) {
+    this.current = n - 1;
+    return function () {
+      this.current += 1;
+      return this.current;
+    };
+  }
+}
 
 /**
  * @param {number} millis
@@ -396,8 +398,13 @@ const hasCycle = function (head) {
  * @return {number[]}
  */
 var plusOne = function (digits) {
+<<<<<<< HEAD
   let inc = [digits[digits.length - 1] + 1];
   if (inc == [10]) {
+=======
+  let inc = digits[digits.length - 1] + 1;
+  if (inc === 10) {
+>>>>>>> c73cb5f81eb6c8ca4260f8eb8b314cd5345b1621
     inc = [1, 0];
   }
 
@@ -936,12 +943,1097 @@ const timeLimit = function (fn, t) {
 const lengthOfLastWord = function (s) {
   const sArray = s.split(' ');
   for (let i = sArray.length - 1; i >= 0; i--) {
+<<<<<<< HEAD
     console.log(sArray);
     if (sArray[i] === '') {
       continue;
     } else {
+=======
+    if (sArray[i] !== '') {
+>>>>>>> c73cb5f81eb6c8ca4260f8eb8b314cd5345b1621
       return sArray[i].length;
     }
   }
 };
+<<<<<<< HEAD
 console.log(lengthOfLastWord('myboy is a whackjob     '));
+=======
+
+/**
+ * 94. Binary Tree Inorder Traversal
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const inorderTraversal = function (root) {
+  let inorderArr = [];
+  const inorderResultToArr = function (root) {
+    if (root == null) return; // guard clause
+
+    if (root.left !== null) {
+      inorderResultToArr(root.left);
+    }
+    if (root.val !== undefined) {
+      inorderArr.push(root.val);
+    }
+    if (root.right !== null) {
+      inorderResultToArr(root.right);
+    }
+  };
+  inorderResultToArr(root);
+
+  return inorderArr;
+};
+
+/**
+ * 217. Contains Duplicate
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+const containsDuplicate = function (nums) {
+  return new Set(nums).size !== nums.length;
+};
+
+/**
+ * 242. Valid Anagram
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+const isAnagram = function (s, t) {
+  // true if t is an anagram of s, else false
+  // hashmap using letters as keys and count as values is pretty intuitive
+  let anagramHashMap = {};
+  for (let char of s) {
+    if (anagramHashMap[char]) anagramHashMap[char] += 1;
+    else anagramHashMap[char] = 1;
+  }
+  // now the hashmap is fully populated, need to cross reference t to the s map
+
+  for (let char of t) {
+    if (anagramHashMap[char]) anagramHashMap[char] -= 1;
+    else return false;
+  }
+
+  for (let char in anagramHashMap) {
+    if (anagramHashMap[char] !== 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ * 205. Isomorphic Strings
+ */
+
+const isIsomorphic = function (s, t) {
+  for (let i = 0; i < s.length; i++) {
+    // comparing shape, so indexOf will return the indices of the letters in question.
+    // This way, the letter doesn't matter but the index does. If it's in the same position, the indices will match
+
+    if (s.indexOf(s[i], i + 1) !== t.indexOf(t[i], i + 1)) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+ * 290. Word Pattern
+ *
+ * @param {string} pattern
+ * @param {string} s
+ * @return {boolean}
+ */
+const wordPattern = function (pattern, s) {
+  //First of all, create an array contains words from s.
+  //And a template to track key value pairs (we use this a bit later)
+  const arr = s.split(' '),
+    temp = {};
+
+  //Check if both has the same length and amount of unique charactors.
+  if (
+    arr.length !== pattern.length ||
+    new Set([...pattern]).size !== new Set(arr).size
+  )
+    return false;
+
+  //Iterate over the pattern.
+  //1.If template has not seen pattern before,
+  //add patter as key word as value.
+  //2. Else, compare, return false if key value do not match.
+  for (let i = 0; i < pattern.length; i++) {
+    if (!temp[pattern[i]]) {
+      temp[pattern[i]] = arr[i];
+    } else if (temp[pattern[i]] !== arr[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+ * LC 42. Trapping Rainwater
+ * This solution works for small enough numbers
+ * @param {number[]} height
+ * @return {number}
+ */
+// in order for water to be trapped, there needs to be a valley
+// "valley" === left, right are > 0, AND that center is <= left && right
+//  depth is defined by whichever side (left or right) is smaller
+const trap = function (height) {
+  let unitsTrapped = 0;
+  const maxDepth = Math.max(...height);
+  let depth = 1;
+  // if this is +, right > left
+  // if this is - left > right
+  // the abs value is what matters.
+  while (depth <= maxDepth) {
+    let left = 0;
+    let right = 1;
+    // Try a bottom up approach.
+    // first go through the max depth of 1. subtract 1 from every index of height, (if the element is !== 0)
+    while (right <= height.length - 1) {
+      if (height[left] > 0 && height[right] > 0) {
+        if (right - left > 1) {
+          // valley identified, evaluate
+          unitsTrapped += right - left - 1;
+          left = right;
+          right++;
+        } else {
+          left++; // double check here
+          right++;
+          continue;
+        }
+      }
+      if (height[left] === 0) {
+        left++;
+        if (right - left <= 1) {
+          right++;
+          continue;
+        }
+      }
+      if (height[right] === 0) {
+        right++;
+        continue;
+      }
+    }
+    // first do stuff, then reduce height and try again
+    height = height.map((el) => {
+      if (el !== 0) {
+        return el - 1;
+      }
+      return el;
+    });
+    depth++;
+  }
+
+  return unitsTrapped;
+};
+function trappingRainwaterFaster(height) {
+  if (height == null || height.length === 0) return 0;
+
+  let l = 0;
+  let r = height.length - 1;
+
+  let lMax = 0;
+  let rMax = 0;
+
+  let res = 0;
+
+  while (l < r) {
+    lMax = Math.max(lMax, height[l]);
+    if (height[l] < lMax) {
+      res += lMax - height[l];
+    }
+
+    rMax = Math.max(rMax, height[r]);
+    if (height[r] < rMax) {
+      res += rMax - height[r];
+    }
+
+    height[l] < height[r] ? l++ : r--;
+  }
+
+  return res;
+}
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * 35. Search Insert Position
+ */
+const searchInsert = function (nums, target) {
+  let lo = 0,
+    hi = nums.length; // we might need to inseart at the end
+  while (lo < hi) {
+    // breaks if lo == hi
+    let mid = lo + Math.floor((hi - lo) / 2); // always gives the lower mid
+    if (target > nums[mid]) {
+      lo = mid + 1; // no way mid is a valid option
+    } else {
+      hi = mid; // it might be possibe to inseart @ mid
+    }
+  }
+  return lo;
+};
+
+/**
+ * 67. Add Binary
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function (a, b) {
+  let carry = 0;
+  let maxLength = a.length;
+
+  if (a.length > b.length) {
+    b = '0'.repeat(a.length - b.length) + b;
+  } else {
+    maxLength = b.length;
+    a = '0'.repeat(b.length - a.length) + a;
+  }
+
+  var result = '';
+
+  for (let i = maxLength - 1; i >= 0; i--) {
+    sum = parseInt(a[i]) + parseInt(b[i]) + carry;
+    result = (sum % 2) + result;
+    carry = sum >= 2 ? 1 : 0;
+  }
+  if (carry) {
+    result = '1' + result;
+  }
+  return result;
+};
+
+/**
+ * LC 55. Jump Game
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+const canJump = function (nums) {
+  if (nums.length <= 1) return true;
+  let maximum = nums[0];
+  // goes through the full loop just to be sure, but sends maximum ahead as a best guess.
+  // This is a Greedy algorithj
+  for (let i = 0; i < nums.length; i++) {
+    if (maximum <= i && nums[i] === 0) return false;
+    if (i + nums[i] > maximum) {
+      maximum = i + nums[i];
+    }
+    if (maximum >= nums.length - 1) return true;
+  }
+  return false;
+};
+
+/**
+ * LC 83. Remove Duplicates from Sorted List
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * Remove all duplicates from a sorted linked list
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const deleteDuplicates = function (head) {
+  if (head == null || head.next == null) return head;
+  let current = head;
+  while (current.next != null && current != null) {
+    if (current.val === current.next.val) {
+      // resolve next node
+      current.next = current.next.next;
+    } else {
+      current = current.next;
+    }
+  }
+  return head;
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * LC 2. Add Two Numbers
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+const addTwoNumbers = function (l1, l2) {
+  const iter = (n1, n2, rest = 0) => {
+    if (!n1 && !n2 && !rest) return null;
+    const newVal = (n1?.val || 0) + (n2?.val || 0) + rest;
+    const nextNode = iter(n1?.next, n2?.next, Math.floor(newVal / 10));
+    return new ListNode(newVal % 10, nextNode);
+  };
+  return iter(l1, l2);
+};
+
+/**
+ * LC 392. Is Subsequence
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+const isSubsequence = function (s, t) {
+  // if s is a sub of t return true.
+  if (s.length > t.length) return false;
+  let sub = 0;
+  for (let i = 0; i < t.length; i++) {
+    if (s[sub] === t[i]) sub++;
+  }
+  return sub === s.length;
+};
+
+/**
+ * 11. Container With Most Water
+ * @param {number[]} height
+ * @return {number}
+ */
+const maxArea = function (height) {
+  let ans = 0,
+    i = 0,
+    j = height.length - 1;
+  while (i < j) {
+    ans = Math.max(ans, Math.min(height[i], height[j]) * (j - i));
+    height[i] <= height[j] ? i++ : j--;
+  }
+  return ans;
+};
+
+/**
+ * 4. Median of Two Sorted Arrays
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+const findMedianSortedArrays = function (nums1, nums2) {
+  if (nums1.length > nums2.length) {
+    [nums1, nums2] = [nums2, nums1];
+  }
+
+  const m = nums1.length;
+  const n = nums2.length;
+  let low = 0,
+    high = m;
+
+  while (low <= high) {
+    const partitionX = Math.floor((low + high) / 2);
+    const partitionY = Math.floor((m + n + 1) / 2) - partitionX;
+
+    const maxX =
+      partitionX === 0 ? Number.MIN_SAFE_INTEGER : nums1[partitionX - 1];
+    const maxY =
+      partitionY === 0 ? Number.MIN_SAFE_INTEGER : nums2[partitionY - 1];
+
+    const minX = partitionX === m ? Number.MAX_SAFE_INTEGER : nums1[partitionX];
+    const minY = partitionY === n ? Number.MAX_SAFE_INTEGER : nums2[partitionY];
+
+    if (maxX <= minY && maxY <= minX) {
+      if ((m + n) % 2 === 0) {
+        return (Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;
+      } else {
+        return Math.max(maxX, maxY);
+      }
+    } else if (maxX > minY) {
+      high = partitionX - 1;
+    } else {
+      low = partitionX + 1;
+    }
+  }
+};
+
+/**
+ * 7. Reverse Integer
+ * @param {number} x
+ * @return {number}
+ */
+const reverse = function (x) {
+  let mutatedInt = x.toString().split('').reverse().join('');
+  if (
+    parseInt(mutatedInt) < Math.pow(2, 31) * -1 ||
+    parseInt(mutatedInt) > Math.pow(2, 31) - 1
+  )
+    return 0;
+  if (mutatedInt[mutatedInt.length - 1] === '-')
+    mutatedInt = parseInt(mutatedInt) * -1;
+  else mutatedInt = parseInt(mutatedInt);
+
+  return mutatedInt;
+};
+
+/**
+ * @param {null|boolean|number|string|Array|Object} object
+ * @return {string}
+ * return JSON.stringify(object) is the easy solution
+ */
+
+// recursively call on each element
+
+const jsonStringify = function (object) {
+  switch (typeof object) {
+    case 'object':
+      if (Array.isArray(object)) {
+        const elements = object.map((element) => jsonStringify(element));
+        return `[${elements.join(',')}]`;
+      } else if (object) {
+        const keys = Object.keys(object);
+        const keyValuePairs = keys.map(
+          (key) => `"${key}":${jsonStringify(object[key])}`
+        );
+        return `{${keyValuePairs.join(',')}}`;
+      } else {
+        return 'null';
+      }
+    case 'boolean':
+    case 'number':
+      return `${object}`;
+    case 'string':
+      return `"${object}"`;
+    default:
+      return '';
+  }
+};
+
+/**
+ * 1732. Find the Highest Altitude
+ * @param {number[]} gain
+ * @return {number}
+ */
+const largestAltitude = function (gain) {
+  const temp = [0];
+  let alt = 0;
+  for (let i = 0; i < gain.length; i++) {
+    alt += gain[i];
+    temp.push(alt);
+  }
+  return Math.max(...temp);
+};
+
+/**
+ * 724. Find Pivot Index
+ * @param {number[]} nums
+ * @return {number}
+ */
+const pivotIndex = function (nums) {
+  let totalSum = 0;
+  let leftSum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    totalSum += nums[i];
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (leftSum === totalSum - leftSum - nums[i]) {
+      return i;
+    }
+    leftSum += nums[i];
+  }
+  return -1;
+};
+
+/**
+ * LC 539. Minimum Time Difference
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+
+// 24 hrs ==> 1440
+
+const findMinDifference = function (timePoints) {
+  let minutesArray = timePoints
+    .map((timestamp) => {
+      // 'timestamp is 'HH:MM', need to convert hrs to minutes, add the remaining minutes for each element
+      // ['HH', 'MM']
+      timestamp = timestamp.split(':');
+      // this gives total minutes per entry
+      return Number(timestamp[0]) * 60 + Number(timestamp[1]);
+      // --> timePoints == [1439, 0]
+    })
+    .sort((a, b) => a - b);
+  // nlogN + n --> NlogN
+  minutesArray.push(minutesArray[0] + 1440);
+
+  let min = 1440;
+
+  for (let i = 1; i < minutesArray.length; i++) {
+    min = Math.min(min, minutesArray[i] - minutesArray[i - 1]);
+  }
+  return min;
+  //
+};
+
+/**
+ * @param {number} range
+ * @return {string}
+ */
+
+const fizzBuzzRange = function (range) {
+  for (let i = 1; i <= range; i++) {
+    let result = '';
+    // starts from 1, goes through whole range INCLUSIVE
+    if (i % 3 === 0) result += 'Fizz';
+    if (i % 5 === 0) result += 'Buzz';
+  }
+};
+
+/**
+ * @param {number} range
+ * @return {number}
+ */
+const sumPrimeNumbersInRange = function (range) {
+  let sum = 0;
+  const isPrime = (value) => {
+    for (let i = 2; i <= value / 2; i++) {
+      if (value % i === 0) return false;
+    }
+    return true;
+  };
+
+  for (let i = 2; i < range; i++) {
+    if (isPrime(i)) sum += i;
+  }
+  return sum;
+};
+
+/**
+ * @param {number} range
+ * @return {number}
+ */
+const sumPrimeNumbersSieve = function (range) {
+  let sum = 0;
+  let isPrime = new Array(range).fill(true);
+  isPrime[0] = isPrime[1] = false;
+
+  for (let i = 2; i <= Math.sqrt(range); i++) {
+    if (isPrime[i]) {
+      for (let j = i * i; j <= range; j += i) {
+        isPrime[j] = false;
+      }
+    }
+  }
+
+  for (let i = 2; i <= range; i++) {
+    if (isPrime[i]) sum += i;
+  }
+  return sum;
+};
+
+/**
+ * 219. Contains Duplicate II
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+const containsNearbyDuplicate = function (nums, k) {
+  // k is the spread between elements
+  // nums is a number array to iterate across.
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j <= i + k; j++) {
+      if (nums[i] == nums[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+/**
+ * 2648. Generate Fibonacci Sequence
+ * @return {Generator<number>}
+ */
+// next number in the sequence is eequal to the previous 2 numbers combined
+// 0 1 1 2 3 5 8 ...
+const fibGenerator = function* () {
+  let a = 0,
+    b = 1;
+  while (true) {
+    yield a;
+    b = a + b;
+    a = b - a;
+  }
+};
+
+/**
+ * 2215. Find the Difference of Two Arrays
+
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[][]}
+ */
+const findDifference = function (nums1, nums2) {
+  // hashmap
+
+  let nums1Set = new Set(nums1); // O(N)
+  let nums2Set = new Set(nums2);
+  let nums1Distinct = Array.from(nums1Set); // O(N)
+  let nums2Distinct = Array.from(nums2Set);
+
+  let nums1DistinctResult = [];
+  let nums2DistinctResult = [];
+
+  for (let i = 0; i < nums1Distinct.length; i++) {
+    if (!nums2Set.has(nums1Distinct[i]))
+      // O(1)
+      nums1DistinctResult.push(nums1Distinct[i]);
+  }
+  for (let i = 0; i < nums2Distinct.length; i++) {
+    if (!nums1Set.has(nums2Distinct[i]))
+      nums2DistinctResult.push(nums2Distinct[i]);
+  }
+
+  return [nums1DistinctResult, nums2DistinctResult];
+};
+
+//
+
+const countPrimeNumbersInRange = (upper) => {
+  // return how many prime numbers exist from 1 to the end of the range
+  // a number is prime if it's ONLY divisible by itself, and 1
+  // 1 NO
+  // 2 YES
+  // 3 YES
+  // 4 NO
+  let count = 0;
+  if (upper === 1 || upper === 0) return 0;
+  if (upper >= 2) count++;
+
+  for (let i = 3; i <= upper; i += 2) {
+    if (isPrime(i)) count++;
+  }
+  return count;
+};
+
+const isPrime = (value) => {
+  // any even number is NOT prime (except 2)
+  if (value === 3) return true;
+  for (let i = 3; i < value / 2; i += 2) {
+    // value % i === 0
+    if (value % i === 0) return false;
+  }
+  return true;
+};
+
+/**
+ * 1207. Unique Number of Occurrences
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+const uniqueOccurrences = function (arr) {
+  let map = new Map();
+  let i = arr.length;
+  while (--i >= 0) map.set(arr[i], map.get(arr[i]) + 1 || 1);
+  let set = new Set(map.values());
+  return set.size === map.size;
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * 160. Intersection of Two Linked Lists
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ * 2 Lists intersect if they have the same value and the same Next Node NOT the same current node
+ * hash table implementation is probably the best
+ */
+const getIntersectionNode = function (headA, headB) {
+  // iterate through each list one step at a time, compare in the table and continue
+  // building a hashtable is O(1) for each element added, over N items in list 2, gives O(N)
+  // fill out the hash table and compare, good solution
+  let currentA = headA;
+  let currentB = headB;
+  let hashTableB = {};
+  while (currentB) {
+    hashTableB[currentB.val] = currentB;
+    currentB = currentB.next;
+  }
+  while (currentA) {
+    if (hashTableB[currentA.val] === currentA) {
+      return currentA;
+    } else {
+      currentA = currentA.next;
+    }
+  }
+  return null;
+};
+
+const betterGetIntersectionNode = function (headA, headB) {
+  // consice solution
+  let a = headA,
+    b = headB;
+  while (a !== b) {
+    a = !a ? headB : a.next;
+    b = !b ? headA : b.next;
+  }
+  return a;
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const rotate = function (nums, k) {
+  k %= nums.length; // if k is greater than nums.length then one cycle is completed that means it will remain the same and we have to remainder shifts
+
+  const reverse = function (i, j) {
+    while (i < j) {
+      let temp = nums[i];
+      nums[i] = nums[j];
+      nums[j] = temp;
+      i++;
+      j--;
+    }
+  }; // suppose  ----->--->
+  reverse(0, nums.length - 1); // reverse   <--<------
+  reverse(0, k - 1); // reverse first part ---><----
+  reverse(k, nums.length - 1); // reverse second part --->----->
+};
+
+/* 
+ LC 346. Moving Average from Data Stream
+ */
+class MovingAverage1 {
+  constructor(size) {
+    this.size = size;
+    this.array = [];
+    this.sum = 0;
+  }
+
+  next(val) {
+    if (this.array.length === this.size) {
+      this.sum -= this.array.shift();
+    }
+    this.array.push(val);
+    this.sum += val;
+
+    return this.sum / this.array.length;
+  }
+}
+
+/**
+ * 1491. Average Salary Excluding the Minimum and Maximum Salary
+ * @param {number[]} salary
+ * @return {number}
+ */
+const average = function (salary) {
+  // run a total, track the min, track the max, when the array terminates, subtract the max and min values, and average using salary.length - 2 (excluding the min and max values)
+  let total = 0;
+  let min = Infinity;
+  let max = 0;
+
+  for (let i = 0; i < salary.length; i++) {
+    total += salary[i];
+    min = Math.min(min, salary[i]);
+    max = Math.max(max, salary[i]);
+  }
+
+  total = total - min - max;
+
+  return total / (salary.length - 2);
+};
+
+/**
+ * 2455. Average Value of Even Numbers That Are Divisible by Three
+ * @param {number[]} nums
+ * @return {number}
+ */
+const averageValue = function (nums) {
+  // if the element is divisible by 3; do math
+  // else continue
+  // keep a count to average the values
+  let total = 0;
+  let count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] % 3 === 0 && nums[i] % 2 === 0) {
+      // is divisble by 3 evenly
+      // inc count, add to total
+      count++;
+      total += nums[i];
+    }
+  }
+
+  return count === 0 ? total : Math.floor(total / count);
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const distinctAverages = function (nums) {
+  // find min and max on every iteration
+  nums.sort((a, b) => a - b);
+  let table = {};
+  let count = 0;
+  while (nums.length > 0) {
+    const max = nums.pop();
+    const min = nums.shift();
+
+    const average = (max + min) / 2;
+    if (!table[average]) {
+      count++;
+      table[average] = 1;
+    }
+  }
+  return count;
+};
+
+class MovingAverage2 {
+  constructor(windowSize) {
+    this.windowSize = windowSize;
+    this.runningSum = 0;
+    this.queue = Array(windowSize).fill(0);
+    this.count = 0;
+    this.head = 0;
+  }
+  add(val) {
+    // FIFO
+    if (typeof val !== 'number') return;
+    this.count++;
+    const tail = (this.head + 1) % this.windowSize;
+    this.runningSum = this.runningSum - this.queue[tail] + val;
+
+    this.head = (this.head + 1) % this.windowSize;
+    this.queue[this.head] = val;
+  }
+
+  getAverage() {
+    // undefined --> things that will/should have a value, but currently dont
+    // null --> things that are definitely not defined
+    if (this.count === 0 || this.windowSize === 0) return;
+    return this.runningSum / Math.min(this.count, this.windowSize); // -> O(1) TC
+  }
+}
+
+// windowSize = 3
+// [1, , ] --> calculating the average is not always based on window size, rather els in queue
+// [1, 2, ]
+// [1, 2, 3]
+// 1 [2, 3, 4] FIFO with a fixed size --> queue
+
+class MovingAverage {
+  constructor(windowSize) {
+    this.windowSize = windowSize;
+    this.queue = Array(windowSize).fill(0);
+    this.count = 0;
+    this.runningSum = 0;
+    this.head = 0;
+  }
+  // [0, 0, 0]
+  add(val) {
+    if (this.windowSize === 0) return;
+    this.count++;
+
+    const tail = (this.head + 1) % this.windowSize;
+    this.runningSum = this.runningSum - this.queue[tail] + val;
+    // move to the next head
+    this.head = tail;
+    this.queue[this.head] = val;
+  }
+
+  getAverage() {
+    // return the average in the window
+    if (this.count === 0 || this.windowSize === 0) return;
+    return this.runningSum / Math.min(this.count, this.windowSize); // --> O(1) TC
+  }
+}
+
+// param true means a board is currently underneath it
+// false no board under
+
+// incoming board: true false
+// exiting board: false true
+// 5ft: true true
+// 3ft: true false | false true
+// no board: false false
+
+// need to track the static state of the function
+
+// sensors are 4ft apart
+// boards are 5ft / 3ft
+// distance between boards is minimum 4.5ft
+// follow up mod, what if the distance between boards is smaller, say 1.5ft
+// only 1x 5ft boards can pass through with that space at a time.
+let count3 = 0;
+let count5 = 0;
+
+class BoardCounter {
+  static #prevState0 = false;
+  static #prevState1 = false;
+  static #boardCount = 0;
+  static count(s0, s1) {
+    // purpose of this function is to update our counters and prev states
+    // first check prev state
+    // 5ft: true true
+    // 3ft: true false | false true
+    // no board: false false
+    // incoming board: true false
+    if (!this.#prevState1 && s1) {
+      // if a board is leaving count based on tripped sensors currently
+      if (this.#boardCount === 1 && s0) {
+        count5++;
+      } else {
+        count3++;
+      }
+      this.#boardCount--;
+    }
+    if (!this.#prevState0 && s0) {
+      this.#boardCount++;
+    }
+    // update new states at the end
+    this.prevState0 = s0;
+    this.prevState1 = s1;
+  }
+}
+// if 1.5ft spacing, both sensors could be occupied without being a 5ft board
+// truth tables are
+// incoming board: true false
+// 5ft passing through: true true ONLY IF PREV STATE WAS TRUE FALSE
+// 3ft passing through would trip: true false -> false false -> false true -> false false
+// 5ft followed by a 3 ft: true false -> true true -> false true -> true true
+// with a spacing of 4.5ft, there will always be a reset of false | false readings between boards
+/* BoardCounter.boardCounterIIFE(true, false);
+BoardCounter.boardCounterIIFE(false, false);
+BoardCounter.boardCounterIIFE(false, true);
+BoardCounter.boardCounterIIFE(false, false);
+
+BoardCounter.boardCounterIIFE(true, false);
+BoardCounter.boardCounterIIFE(true, true);
+BoardCounter.boardCounterIIFE(false, true);
+BoardCounter.boardCounterIIFE(false, false);
+console.log(count3, count5);
+BoardCounter.prevState0 = true; */
+
+// static class: wayy more readable for people who don't live in JS-land
+// The JS way. (Must be a function way)
+
+// IIFE | module design pattern JS. This is a special attack from JS-land
+// that might not be particularly readable to people who aren't moderately versed in the dark arts of ES6+
+// I think the class based solution with a singleton might be better simply because of general readability
+
+const boardCounterIIFE = (function () {
+  let _boardCount = 0;
+  let _prevState0 = false;
+  let _prevState1 = false;
+
+  // purpose of this function is to update our counters and prev states
+  // first check prev state
+  // 5ft: true true
+  // 3ft: true false | false true
+  // no board: false false
+  // incoming board: true false
+  function count(s0, s1) {
+    if (!_prevState1 && s1) {
+      // if a board is leaving count based on tripped sensors currently
+      if (_boardCount === 1 && s0) {
+        count5++;
+      } else {
+        count3++;
+      }
+      _boardCount--;
+      console.log(count3, count5);
+    }
+    if (!_prevState0 && s0) {
+      _boardCount++;
+    }
+    // update new states at the end
+    _prevState0 = s0;
+    _prevState1 = s1;
+  }
+
+  return (s0, s1) => count(s0, s1);
+})();
+
+/**
+ * 17. Letter Combinations of a Phone Number
+ * @param {string} digits
+ * @return {string[]}
+ * Input: digits = "23"
+ * Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+ * 1: not possible
+ * 2: abc
+ * 3: def
+ * 4: ghi
+ * 5: jkl
+ * 6: mno
+ * 7: pqrs
+ * 8: tuv
+ * 9: wxyz
+ * 0: not possible
+ */
+const letterCombinations = function (digits) {
+  // Time O(3^N * 4^M)
+  //   N is the number of digits in the input that maps to 3 letters (e.g. 2, 3, 4, 5, 6, 8)
+  //   M is the number of digits in the input that maps to 4 letters (e.g. 7, 9)
+  //
+  // Space O(3^N * 4^M) since one has to keep O(3^N * 4^M) solutions.
+  if (digits == null || digits.length === 0) return [];
+
+  const map = {
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz',
+  };
+
+  const res = [];
+  const go = (i, s) => {
+    if (i === digits.length) {
+      res.push(s);
+      return;
+    }
+
+    for (const c of map[digits[i]]) {
+      go(i + 1, s + c);
+    }
+  };
+
+  go(0, '');
+  return res;
+};
+
+/**
+ * 162. Find Peak Element
+ * Full solution requires O(logN) solution
+ * @param {number[]} nums
+ * @return {number}
+ */
+const findPeakElement = function (nums) {
+  // returns the index of an element that is larger than its neighbor
+
+  let pointer = 0;
+  while (next <= nums.length) {
+    nums[pointer];
+  }
+};c
+>>>>>>> c73cb5f81eb6c8ca4260f8eb8b314cd5345b1621

@@ -140,5 +140,89 @@ def create_phone_number_best(n):
     """best solution"""
     n = ''.join(map(str, n))
     return '(%s) %s-%s' % (n[:3], n[3:6], n[6:])
-
 # -------------------------------------------------------------------------------------------------------------------- #
+
+"""Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target."""
+class Solution:
+    def twoSum(self, nums, target):
+        # potentially make a hashmap
+        hash_map = {}
+        count = 0
+        for num in nums:
+            hash_map[num] = count
+            count += 1
+        
+        for num in range(len(nums)):
+            delta = target - nums[num]
+            if delta in hash_map.keys() and not hash_map[delta] == num:
+                return [hash_map[delta], num]
+            
+    def isPalindrome(self, x):
+        if (x < 0 or (x % 10 == 0 and x != 0)):
+            return False
+        reversed_number = 0
+        while x > reversed_number: 
+            reversed_number = reversed_number * 10 + x % 10
+            x /= 10
+        return x == reversed_number or x == reversed_number / 10
+    def majorityElement(self, nums):
+        nums.sort()
+        return nums[len(nums)//2]
+    def maxArea(self, height):
+        ans = 0
+        i = 0
+        j = len(height) - 1
+        while i < j:
+            ans = max(ans, min(height[i], height[j]) * (j - i))
+            if height[i] <= height[j]:
+                i += 1
+            else:
+                j -= 1
+        return ans
+    def isSubsequence(self, s, t):
+            if s == '':
+                return True
+            sPointer = 0
+            tPointer = 0
+            while tPointer < len(t):
+                if s[sPointer] == t[tPointer]:
+                    sPointer += 1
+                    tPointer += 1
+                elif s[sPointer] != t[tPointer]:
+                    tPointer += 1
+                if sPointer >= len(s):
+                    return True
+            return False
+    
+    def threeSum(self, nums):
+        # i, j and k cannot be the same
+        # i + j + k = 0
+        # [i, j, k] != other elements in the returned tuple
+        # return ALL matching triplets
+        res = []
+        nums.sort()
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i - 1] != nums[i]:
+                lo, hi = i + 1, len(nums) - 1
+                while (lo < hi):
+                    sum = nums[i] + nums[lo] + nums[hi]
+                    if sum < 0:
+                        lo += 1
+                    elif sum > 0:
+                        hi -= 1
+                    else:
+                        res.append([nums[i], nums[lo], nums[hi]])
+                        lo += 1
+                        hi -= 1
+                        while lo < hi and nums[lo] == nums[lo - 1]:
+                            lo += 1
+        return res
+
+    
+
+solution = Solution().threeSum([1, 2, -1, -2, 0, 2])
+# O(1)
+
+print(solution)
