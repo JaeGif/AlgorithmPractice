@@ -927,3 +927,21 @@ const timeLimit = function (fn, t) {
     return Promise.race([funcExec, funcRej]);
   };
 };
+
+/**
+ * 58. Length of Last Word
+ * @param {string} s
+ * @return {number}
+ */
+const lengthOfLastWord = function (s) {
+  const sArray = s.split(' ');
+  for (let i = sArray.length - 1; i >= 0; i--) {
+    console.log(sArray);
+    if (sArray[i] === '') {
+      continue;
+    } else {
+      return sArray[i].length;
+    }
+  }
+};
+console.log(lengthOfLastWord('myboy is a whackjob     '));
