@@ -397,7 +397,7 @@ const hasCycle = function (head) {
  */
 var plusOne = function (digits) {
   let inc = [digits[digits.length - 1] + 1];
-  if (inc === [10]) {
+  if (inc == [10]) {
     inc = [1, 0];
   }
 
