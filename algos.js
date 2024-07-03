@@ -398,13 +398,8 @@ const hasCycle = function (head) {
  * @return {number[]}
  */
 var plusOne = function (digits) {
-<<<<<<< HEAD
-  let inc = [digits[digits.length - 1] + 1];
-  if (inc == [10]) {
-=======
   let inc = digits[digits.length - 1] + 1;
   if (inc === 10) {
->>>>>>> c73cb5f81eb6c8ca4260f8eb8b314cd5345b1621
     inc = [1, 0];
   }
 
@@ -943,21 +938,11 @@ const timeLimit = function (fn, t) {
 const lengthOfLastWord = function (s) {
   const sArray = s.split(' ');
   for (let i = sArray.length - 1; i >= 0; i--) {
-<<<<<<< HEAD
-    console.log(sArray);
-    if (sArray[i] === '') {
-      continue;
-    } else {
-=======
     if (sArray[i] !== '') {
->>>>>>> c73cb5f81eb6c8ca4260f8eb8b314cd5345b1621
       return sArray[i].length;
     }
   }
 };
-<<<<<<< HEAD
-console.log(lengthOfLastWord('myboy is a whackjob     '));
-=======
 
 /**
  * 94. Binary Tree Inorder Traversal
@@ -2035,5 +2020,20 @@ const findPeakElement = function (nums) {
   while (next <= nums.length) {
     nums[pointer];
   }
-};c
->>>>>>> c73cb5f81eb6c8ca4260f8eb8b314cd5345b1621
+};
+
+/**
+ * LC 71. Simplify Path
+ * @param {string} path
+ * @return {string}
+ */
+const simplifyPath = function (path) {
+  path = path.split('/');
+  let stack = [];
+  for (let p of path) {
+    if (p == '.' || p == '') continue;
+    else if (p == '..') stack.pop();
+    else stack.push(p);
+  }
+  return '/' + stack.join('/');
+};

@@ -106,8 +106,6 @@ const factorial2 = (n) => {
   }
   return total;
 };
-
-console.log(factorial2(-5));
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -129,4 +127,21 @@ const addTwoNumbers = function (l1, l2) {
     return new ListNode(newVal % 10, nextNode);
   };
   return iter(l1, l2);
+};
+
+/**
+ * LC 88. Merge Sorted Array
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+// m is length of nums 1, n is length of nums 2
+
+// nums 1 has a fixed length of n + m for sorting accomodation
+
+const merge = function (nums1, m, nums2, n) {
+  // can iterate through both arrays matching values one by one the slow way
+  
 };
