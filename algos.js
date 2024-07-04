@@ -2082,3 +2082,52 @@ const mergeNodes = function (head) {
   }
   return newHead;
 };
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+const isPalindromeNew = function (s) {
+  // same forward and back, symbols spaces, etc
+  // separate nonletters, join as default case, reverse a copy, and rejoin
+  // compare default to reversed
+  // if === return true,
+  // else return false
+
+  // 2 pointers for no real good reason :(
+
+  let high = s.length - 1;
+  let low = 0;
+  s = s.toLowerCase();
+  while (high > low) {
+    if (/[a-z0-9]/.test([s[high]]) && /[a-z0-9]/.test([s[low]])) {
+      // both are letter
+      if (s[high] === s[low]) {
+        high--;
+        low++;
+      } else {
+        return false;
+      }
+    } else {
+      if (/[a-z0-9]/.test([s[low]]) && !/[a-z0-9]/.test([s[high]])) {
+        // low is a letter not high
+        high--;
+      } else if (/[a-z0-9]/.test([s[high]]) && !/[a-z0-9]/.test([s[low]])) {
+        // low is a letter not high
+        low++;
+      } else {
+        // both not a letter
+        high--;
+        low++;
+      }
+    }
+  }
+  return true;
+};
+const isPalindrome = function (s) {
+  let str = s.replace(/[^a-zA-Z0-9]/g, '').replace(/\s+/g, '');
+  function checkPalindrome(str) {
+    return str == str.split('').reverse().join('');
+  }
+  return checkPalindrome(str.toLowerCase());
+};
