@@ -2037,3 +2037,48 @@ const simplifyPath = function (path) {
   }
   return '/' + stack.join('/');
 };
+/**
+ * 2181. Merge Nodes in Between Zeros
+ *
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+
+const mergeNodes = function (head) {
+  // basically if this.val === 0, disconnect the node, and connect the prev to the next
+  // 2 pointers seems like a decent solution.
+
+  let current = head;
+  let next = head.next;
+  let sum = 0;
+  let newHead = null;
+  // [9, 12]
+  //      ^^
+  while (next) {
+    if (current.val === 0) {
+      current = current.next;
+    }
+    if (next.val !== 0) {
+      sum += next.val;
+      next = next.next;
+    }
+    if (next.val === 0) {
+      current.val = sum;
+      current.next = next.next;
+      next = next.next;
+      if (!newHead) {
+        newHead = current;
+      }
+      current = next;
+      sum = 0;
+    }
+  }
+  return newHead;
+};
