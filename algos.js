@@ -2160,3 +2160,43 @@ const groupAnagrams = function (strs) {
   }
   return ans;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {string[]}
+ */
+const summaryRanges = function (nums) {
+  let result = [];
+  // 2 pointers, one to track the beginning of a range, the other the end
+  let start = 0;
+  let end = 0;
+
+  // [0, 1, 2, 4, 5, 7, 8, 10]
+  // ^^
+
+  // expected: ["0->2", "4->5", "7->8", "10"]
+
+  while (end < nums.length) {
+    console.log(start, end);
+    if (nums[end + 1] === nums[end] + 1) {
+      // continue
+      end++;
+    } else {
+      // end of interval
+      if (start === end) {
+        result.push(`${nums[start]}`);
+        start++;
+        end++;
+        continue;
+      }
+      result.push(nums[start] + '->' + nums[end]); // coerced to a string, yay JS
+
+      // start pointer and end pointer move to be on the same position
+      end++;
+      start = end;
+    }
+  }
+  return result;
+};
+
+console.log(summaryRanges([0, 1, 2, 4, 5, 7]));
