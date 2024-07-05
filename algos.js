@@ -2131,3 +2131,32 @@ const isPalindrome = function (s) {
   }
   return checkPalindrome(str.toLowerCase());
 };
+
+/**
+ * 49. Group Anagrams
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+const groupAnagrams = function (strs) {
+  // Sort is klogk on most browsers with JS
+  // sort is correlated to the str length, assuming they can only be real words, it works decently
+  // if the array has anagrams group them, else pop them off
+  // build a hashmap, if the word exists put it in the hashmap with the index
+  // sorting will make all anagrams look the same
+  // then we can group the anagrams based on if they look the same
+  const strMap = new Map();
+  const ans = [];
+  for (const str of strs) {
+    const sortedStr = str.split('').sort().join('');
+    //
+    if (strMap.has(sortedStr)) {
+      ans[strMap.get(sortedStr)].push(str);
+      // add the thing to the right el
+    } else {
+      // correlate the sorted str with potential index for replacement
+      strMap.set(sortedStr, ans.length);
+      ans.push([str]);
+    }
+  }
+  return ans;
+};

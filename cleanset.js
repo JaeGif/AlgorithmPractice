@@ -143,5 +143,24 @@ const addTwoNumbers = function (l1, l2) {
 
 const merge = function (nums1, m, nums2, n) {
   // can iterate through both arrays matching values one by one the slow way
-  
+};
+
+/**  LC 1 Two Sum
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ **/
+const twoSum = function (nums, target) {
+  // return [i1, i2]
+  // i1 !== i2
+  // always 1 soln
+  let hashMap = {};
+  for (let i = 0; i < nums.length; i++) {
+    hashMap[nums[i]] = i;
+  } // {value: index}
+  for (let i = 0; i < nums.length; i++) {
+    if (hashMap[target - nums[i]] && hashMap[target - nums[i]] !== i) {
+      return [hashMap[target - nums[i]], i];
+    }
+  }
 };
