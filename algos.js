@@ -2198,5 +2198,64 @@ const summaryRanges = function (nums) {
   }
   return result;
 };
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const productExceptSelf2 = function (nums) {
+  // multiply them all by each other (same value)
+  // go through one more time and divide them all by current index
 
-console.log(summaryRanges([0, 1, 2, 4, 5, 7]));
+  let total = 1;
+  let totalNonZero = 0;
+  for (let i = 0; i < nums.length; i++) {
+    // add same val to all
+
+    if (totalNonZero !== 0) {
+      totalNonZero *= nums[i];
+    } else {
+      total *= nums[i];
+      if (nums[i] !== 0) {
+        totalNonZero *= nums[i];
+      }
+    }
+  }
+  let answer = Array(nums.length).fill(total); // O(n) fill an array with total
+  for (let j = 0; j < answer.length; j++) {
+    // fix each index by division
+    if (nums[j] === 0) answer[j] = totalNonZero;
+    else answer[j] /= nums[j];
+  }
+  return answer;
+};
+
+// QUICKSORT HIGH PIVOT INDEX
+// step through it
+// [1, 7, 8, 9, 10, 5]
+//  i  j            ^
+
+function partition(arr, low, high) {
+  let pivot = arr[high]; // picking the high
+
+  let i = low - 1; // start i one below for inc
+  // i = 0
+  for (let j = low; j <= high - 1; j++) {
+    if (arr[j] < pivot) {
+      // if selected el is less than the pivot increase i and swap
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+  return i + 1;
+}
+
+const quickSort = function (arr, low, high) {
+  if (low < high) {
+    // continue sorting
+    let partitionIndex = partition(arr, low, high); // returns i = 1
+    // sort the elements before and after the partitions (breaking into new partitions)
+    quickSort(arr, low, partitionIndex - 1);
+    quickSort(arr, partitionIndex + 1, high);
+  }
+};
