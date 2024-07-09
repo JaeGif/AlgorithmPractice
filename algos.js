@@ -2259,3 +2259,29 @@ const quickSort = function (arr, low, high) {
     quickSort(arr, partitionIndex + 1, high);
   }
 };
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const lengthOfLongestSubstring = function (s) {
+  let result = 0;
+  let subStringSet = new Set();
+
+  let high = 0;
+  let low = 0;
+  while (high < s.length) {
+    // O(n)
+    if (!subStringSet.has(s[high])) {
+      subStringSet.add(s[high]);
+      result = Math.max(high - low + 1, result);
+      high++;
+    } else {
+      while (subStringSet.has(s[high])) {
+        // O(k)
+        subStringSet.delete(s[low]);
+        low++;
+      }
+    }
+  }
+  return result;
+};
