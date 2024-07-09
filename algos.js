@@ -2285,3 +2285,39 @@ const lengthOfLongestSubstring = function (s) {
   }
   return result;
 };
+
+/**
+ * 1701. Average Waiting Time
+ * @param {number[][]} customers
+ * @return {number}
+ */
+const averageWaitingTime = function (customers) {
+  let currentWait = 0;
+  let totalWait = 0;
+
+  // [[1, 2], [2, 5], [4, 3]]
+  //      ^
+  // 2 - 1 = 1
+  // currentWait = 2
+  // totalWait = 0;
+  // average = total / customers.length
+
+  for (let i = 0; i < customers.length; i++) {
+    if (i === 0) {
+      currentWait = customers[i][1];
+      totalWait += currentWait;
+      continue;
+    }
+
+    const arrival = customers[i][0];
+    const prep = customers[i][1];
+
+    const arrivalDelta = arrival - customers[i - 1][0];
+    currentWait -= arrivalDelta;
+    if (currentWait < 0) currentWait = 0;
+    currentWait += prep;
+    totalWait += currentWait;
+  }
+
+  return totalWait / customers.length;
+};
