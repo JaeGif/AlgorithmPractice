@@ -2177,7 +2177,6 @@ const summaryRanges = function (nums) {
   // expected: ["0->2", "4->5", "7->8", "10"]
 
   while (end < nums.length) {
-    console.log(start, end);
     if (nums[end + 1] === nums[end] + 1) {
       // continue
       end++;

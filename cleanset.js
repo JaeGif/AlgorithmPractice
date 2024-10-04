@@ -164,3 +164,55 @@ const twoSum = function (nums, target) {
     }
   }
 };
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+const twoSum2 = function (nums, target) {
+  // return indices of nums that add up to --target--
+  // each input has 1 solution
+  // same element may not be reused i.e. return [1, 1] is invalid, [1, 2] is ok even if nums[1] == nums[2]
+
+  // ex input [ 2, 7, 11, 15 ]
+  // ex target = 9
+  // in this case 2, and 7 add to 9. We know there is only 1 soln so we can return here
+
+  // Approach 1
+  // nested for loop across the nums arr excluding the current index
+  // TC: O(n^2)
+  // SC: O(1) no bonus structures used
+
+  /*     for (let i =0; i < nums.length; i++) {
+    for (let j = 0; j < nums.length; j++) {
+      if (i === j) continue; // skip this iteration because we cannot return the same index 
+      if (nums[i] + nums[j] === target) {
+        return [i, j]
+      }
+    }
+    
+  }  */
+
+  // will always have at least one solution, no need for a bonus case
+
+  // this solution is slow, takes O(n^2) time
+  // better solution would be to use a data structure
+
+  // Approach 2
+
+  // using a map, we can iterate once to populate the map, then again to compare, this should come to O(2n) or O(n) as it simplifies
+  // TC: O(n)
+  // SC: O(n) -- building the hashmap takes O(n) space
+
+  const hashMap = {};
+  // populate hashmap
+  for (let i = 0; i < nums.length; i++) {
+    hashMap[nums[i]] = i;
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (hashMap[target - nums[i]] && hashMap[target - nums[i]] !== i) {
+      return [hashMap[target - nums[i]], i];
+    }
+  }
+  // map = {1: 0, 5: 1, 7: 2, 2: 3} etc.
+};
