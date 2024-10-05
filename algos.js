@@ -2017,6 +2017,7 @@ const findPeakElement = function (nums) {
   // returns the index of an element that is larger than its neighbor
 
   let pointer = 0;
+  1;
   while (next <= nums.length) {
     nums[pointer];
   }
