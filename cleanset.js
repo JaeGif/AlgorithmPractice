@@ -268,3 +268,59 @@ function mergeTwoLists(l1, l2) {
 
   return head.next;
 }
+
+/**
+ * @param {number} n
+ * @return {string[]}
+ * Given an integer n, return a string array answer (1-indexed) where:
+
+    answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+    answer[i] == "Fizz" if i is divisible by 3.
+    answer[i] == "Buzz" if i is divisible by 5.
+    answer[i] == i (as a string) if none of the above conditions are true.
+
+Input: n = 15
+Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+ 
+ */
+const fizzBuzz = function (n) {
+  // for loop as we have a defined end point < len(arr) >
+  let output = Array(n);
+  /*   for (let i = 0; i < n; i++) {
+    output[i] = `${i + 1}`;
+
+    if ((i + 1) % 3 === 0) {
+      // fizz
+
+      output[i] = 'Fizz';
+    }
+    if ((i + 1) % 5 === 0) {
+      // buzz
+      if (output[i] === 'Fizz') output[i] += 'Buzz';
+      else output[i] = 'Buzz';
+    }
+  } */
+  const ans = [];
+  // this is MUCH faster
+  // not a better time complexity, it's faster bc we don't construct ans ahead of time
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      ans.push('FizzBuzz');
+    } else if (i % 3 === 0) {
+      ans.push('Fizz');
+    } else if (i % 5 === 0) {
+      ans.push('Buzz');
+    } else {
+      ans.push(i.toString());
+    }
+  }
+
+  return ans;
+};
+
+// improve fizzbuzz with switch
+
+// this is O(n) we go across the whole range 1 time
+// space is also O(n) as we make an arr with length n
+console.log(fizzBuzz(15));
