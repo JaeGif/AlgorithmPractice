@@ -319,8 +319,23 @@ const fizzBuzz = function (n) {
   return ans;
 };
 
-// improve fizzbuzz with switch
+// improve fizzbuzz with switch as a possibility as switches run faster than conditionals
 
 // this is O(n) we go across the whole range 1 time
 // space is also O(n) as we make an arr with length n
-console.log(fizzBuzz(15));
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const romanToInt = function (s) {
+  // Input: s = "MCMXCIV"
+  // Output: 1994
+  // Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+  /* 
+
+    I can be placed before V (5) and X (10) to make 4 and 9. 
+    X can be placed before L (50) and C (100) to make 40 and 90. 
+    C can be placed before D (500) and M (1000) to make 400 and 900.
+ */
+};
