@@ -378,4 +378,40 @@ const romanToInt = function (s) {
   return answer;
 };
 
-console.log(romanToInt('LVIII'));
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const deleteDuplicates = function (head) {
+  // go through the list and remove duplicates, use a while loop
+  if (!head) return null;
+  let current = head;
+  let next = current.next;
+
+  while (next) {
+    if (next.val === current.val) {
+      // current stays the same, inc next
+      next = next.next;
+      if (!next) {
+        // splice immediately, end of phrase reached
+        current.next = null;
+      }
+    } else if (next.val != current.val) {
+      // inc both
+      if (current.next.val != next.val) {
+        // splice the ends here
+        current.next = next;
+      }
+      current = current.next;
+      next = next.next;
+    }
+  }
+  return head;
+};
