@@ -329,6 +329,7 @@ const fizzBuzz = function (n) {
  * @return {number}
  */
 const romanToInt = function (s) {
+  let answer = 0;
   // Input: s = "MCMXCIV"
   // Output: 1994
   // Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
@@ -338,4 +339,43 @@ const romanToInt = function (s) {
     X can be placed before L (50) and C (100) to make 40 and 90. 
     C can be placed before D (500) and M (1000) to make 400 and 900.
  */
+
+  // read s ->
+  // a few conditions
+  // if IV | IX, take V and X - 1
+  // if XL | XC, take L - X and C - X
+  // if CD | CM, take D - C and M - C
+
+  // I think I should use a table of roman ints to reference
+
+  const integerTable = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+
+  for (let i = 0; i < s.length; i++) {
+    let current = integerTable[s[i]];
+    let next = integerTable[s[i + 1]];
+    let result = 0;
+    // start with normal cases
+    // this can be settled to 1/5 or 1/10
+    if (
+      next - current === next * (4 / 5) ||
+      next - current === next * (9 / 10)
+    ) {
+      // they reduce and we need to skip
+      result = next - current;
+      i++;
+    } else result = current;
+    answer += result;
+  }
+
+  return answer;
 };
+
+console.log(romanToInt('LVIII'));
