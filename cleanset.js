@@ -415,3 +415,41 @@ const deleteDuplicates = function (head) {
   }
   return head;
 };
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+const isValid = function (s) {
+  // (()) valid
+  // ([{]}) wrong
+  //  valid
+  // stack FILO
+  let stack = [];
+
+  // comparisons matter in that each should be assigned some value to know if they can cancel
+  const map = {
+    '{': 1,
+    '}': -1,
+    '[': 2,
+    ']': -2,
+    '{': 3,
+    '}': -3,
+  };
+  // with the comparison map, if they add to 0 they cancel out
+  for (let i = 0; i < s.length; i++) {
+    // goes across full string add each el to the stack
+    // if nothing in stack add first immediately
+
+    if (s[i] === ')' || s[i] === '}' || s[i] === ']') {
+      if (map[stack[stack.length - 1]] + s[i] === 0) {
+        stack.pop();
+      } else return false;
+    } else {
+      stack.push(s[i]);
+    }
+  }
+
+  // if empty stack, it cancels out
+  if (stack.length === 0) return true;
+  else return false;
+};
