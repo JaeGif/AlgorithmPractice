@@ -428,8 +428,8 @@ const isValid = function (s) {
 
   // comparisons matter in that each should be assigned some value to know if they can cancel
   const map = {
-    '{': 1,
-    '}': -1,
+    '(': 1,
+    ')': -1,
     '[': 2,
     ']': -2,
     '{': 3,
@@ -441,7 +441,7 @@ const isValid = function (s) {
     // if nothing in stack add first immediately
 
     if (s[i] === ')' || s[i] === '}' || s[i] === ']') {
-      if (map[stack[stack.length - 1]] + s[i] === 0) {
+      if (map[stack[stack.length - 1]] + map[s[i]] === 0) {
         stack.pop();
       } else return false;
     } else {
