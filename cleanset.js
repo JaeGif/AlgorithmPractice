@@ -453,3 +453,31 @@ const isValid = function (s) {
   if (stack.length === 0) return true;
   else return false;
 };
+// 227. Basic Calculator II
+
+const calculate = function (s) {
+  let num = '';
+  let prevOperator = '+';
+  const stack = [];
+
+  for (let i = 0; i <= s.length; i++) {
+    const char = s[i];
+
+    if (char >= '0' && char <= '9') {
+      num += char;
+    }
+
+    if (((char < '0' || char > '9') && char !== ' ') || i === s.length) {
+      if (prevOperator === '+') stack.push(Number(num));
+      if (prevOperator === '-') stack.push(-Number(num));
+      if (prevOperator === '*') stack.push(stack.pop() * Number(num));
+      if (prevOperator === '/')
+        stack.push(Math.trunc(stack.pop() / Number(num)));
+
+      prevOperator = char;
+      num = '';
+    }
+  }
+
+  return stack.reduce((total, cur) => total + cur, 0);
+};
