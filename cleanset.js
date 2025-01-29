@@ -481,3 +481,32 @@ const calculate = function (s) {
 
   return stack.reduce((total, cur) => total + cur, 0);
 };
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const lengthOfLongestSubstring = function (s) {
+  // abcabcbb
+  // need to keep track of the substrings
+  // set to handle keeping track of current substring
+
+  // use pointers
+  // a b c a b c b b
+  //           ^   ^
+
+  let left = 0;
+  let result = 0;
+  let charSet = new Set();
+  // set has .has() .delete() and .add()
+
+  for (let right = 0; right < s.length; right++) {
+    while (charSet.has(s[right])) {
+      charSet.delete(s[left]);
+      left++;
+    }
+    charSet.add(s[right]);
+    result = Math.max(result, right - left + 1);
+  }
+  return result;
+};
+console.log(lengthOfLongestSubstring('aab'));
