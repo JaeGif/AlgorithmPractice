@@ -726,3 +726,51 @@ const detectCycle = function (head) {
 
   return slow;
 };
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const threeSum = function (nums) {
+  // find all the 3 els that add to target
+  // return in [num, num, num][]
+  // may not reuse same index
+  // no duplicates
+  // target =
+  // -1 0 1 2 -1 -4 sort
+  // -4 -1 -1 0 1 2
+  //  i  j        k
+
+  let result = [];
+  nums.sort((a, b) => a - b);
+  for (let i = 0; i < nums.length; i++) {
+    // fix i
+    let j = i + 1;
+    let k = nums.length - 1;
+
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      // skip if we have the same el again
+      // so there are no duplicates in answer
+
+      continue;
+      // aka i++ and skip loop
+    }
+    while (j < k) {
+      // iterate across remaining
+      let total = nums[i] + nums[j] + nums[k];
+      if (total > 0) {
+        k--;
+      } else if (total < 0) {
+        j++;
+      } else {
+        // is found soln
+        result.push([nums[i], nums[j], nums[k]]);
+        j++;
+        // increase j until no more j duplicates
+        while (nums[j] === nums[j - 1] && j < k) {
+          j++;
+        }
+      }
+    }
+  }
+  return result;
+};
