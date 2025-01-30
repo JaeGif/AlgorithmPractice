@@ -582,3 +582,53 @@ const maxProfit = function (prices) {
 
   return profit;
 };
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+const searchRange = function (nums, target) {
+  // array is sorted, can go fast using binary search, otherwise use 2 pointers
+  // log n, therefore binary search
+  // when mid is the same as the val, break into 2 binary searches at the mid point
+
+  let left = 0;
+  let right = nums.length;
+  let result = [];
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] >= target) {
+      right = mid;
+    } else if (nums[mid] < target) {
+      // search right
+      left = mid + 1;
+    }
+  }
+  // after the initial binary search, left is going to be the first occurence no matter what
+  // therefore
+  if (nums[left] !== target) return [-1, -1];
+
+  // otherwise we can store this to a new var, and search again for the right
+  let start = left;
+  right = nums.length - 1;
+  // search again
+
+  // 8
+  // 5 7 7 8 8 10
+  // 0 1 2 3 4  5
+  //       l m  r
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] <= target) {
+      left = mid + 1;
+    } else right = mid;
+  }
+  let end = 0;
+  if (nums[left] === target) {
+    end = left;
+  } else {
+    end = left - 1;
+  }
+
+  return [start, end];
+};
