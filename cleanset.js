@@ -509,4 +509,76 @@ const lengthOfLongestSubstring = function (s) {
   }
   return result;
 };
-console.log(lengthOfLongestSubstring('aab'));
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+const search = function (nums, target) {
+  // algo must be faste than O(n) therefore binary search
+  // -1, 0, 3, 5, 8, 12
+  // return index of target
+  //   or -1 if no exist
+  // [-1, 0, 3] [5, 8, 12]
+  //      ^ > < = target?
+  // if greater than take left side
+  // if less than, take right side
+
+  let left = 0;
+  let right = nums.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2); // ! getting out mid val
+    if (nums[mid] === target) {
+      // ! if mid val is equal to target we will return the mid
+      return mid;
+    } else if (nums[mid] < target) {
+      left = mid + 1; /// ! if mid val is less than target we will move the left pointer to mid+1
+    } else {
+      right = mid - 1; // ! if mid val is greater than target we will move the right pointer mid-1
+    }
+  }
+  //! if we cant find the target we will return -1
+  return -1;
+};
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+const maxProfit = function (prices) {
+  // may buy and sell on the same day!
+  // 7 1 5 3 6 4
+  // every time the stock goes up, we buy the bottom and sell the top
+  // use 2 pointers to find when stock stops going up, then sell.
+  // use same pointers to find when it stops going down, then buy
+  //
+  let profit = 0;
+  let low = 0;
+  let high = 1;
+  let buyIn = -1;
+  while (high <= prices.length) {
+    // 1, 2, 3, 4, 5
+    // ^           ^
+    // prices[low] < prices[high] it goes up else down
+    if (prices[low] < prices[high]) {
+      if (buyIn === -1) {
+        // means we havent bought yet, and the price is going up
+        // therefore buy
+        buyIn = prices[low];
+      }
+    }
+    if (prices[high] < prices[low] || high === prices.length) {
+      // price is going down,
+      if (buyIn !== -1) {
+        // sell at prices[high - 1]
+        profit += prices[high - 1] - buyIn;
+        // reset buyIn to 0
+        buyIn = -1;
+      }
+    }
+    low++;
+    high++;
+  }
+
+  return profit;
+};
