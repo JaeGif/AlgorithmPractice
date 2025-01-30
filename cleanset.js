@@ -632,3 +632,45 @@ const searchRange = function (nums, target) {
 
   return [start, end];
 };
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+const hasCycle = function (head) {
+  // returns bool
+  // racing pointers
+  // fast and slow start together
+  // loop until fast and fast.next null
+  // move fast 2 steps
+  //    move slow 1 step
+  // check if fast = slow
+  //      if true there is a cycle and return true
+  // if loop exits, no cycle return false
+
+  // 1 2 3 4 5 ->
+  //   ^
+  //         fs
+  let fast = head;
+  let slow = head;
+  while (fast && fast.next) {
+    fast = fast.next.next;
+    slow = slow.next;
+
+    // check for equivalence
+    // checks reference of the pointers
+    if (fast === slow) {
+      // fast = slow
+      return true;
+    }
+  }
+
+  return false;
+};
