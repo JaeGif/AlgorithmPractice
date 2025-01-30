@@ -674,3 +674,55 @@ const hasCycle = function (head) {
 
   return false;
 };
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+// detect cycle, AND return the node where cycle occurs
+// race pointers again, but odd options
+
+// slow moves 1
+// fast moves 2
+// therefore
+//  s traveled a + b
+//  f traveled a + b + b + c (c is the distance around the cycle)
+// s = f
+// 2(a + b) = a + b + b + c
+// 2a + 2b = a + 2b + c
+// 2a = a + c
+// a = c
+
+const detectCycle = function (head) {
+  let fast = head;
+  let slow = head;
+  while (fast && fast.next) {
+    // return node of the cycle's beginning
+    slow = slow.next;
+    fast = fast.next.next;
+
+    if (slow === fast) {
+      // cycle exists, but where? hard question slow could be well past the cycle node
+      break;
+    }
+  }
+  // roll it again to catch up
+  if (!fast || !fast.next) return null;
+  fast = head;
+  while (slow !== fast) {
+    // return node of the cycle's beginning
+    slow = slow.next;
+    fast = fast.next;
+
+    // will end when they catch up
+  }
+
+  return slow;
+};
