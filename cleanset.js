@@ -855,3 +855,50 @@ const decodeString = function (s) {
   }
   return currentString;
 };
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+const isPalindrome = function (head) {
+  // O(n) TC
+  // O(1) SP
+  // return true if the LL is a palindrome
+  // use a stack to check if palindrome? easy, but makes it O(n) space
+  // to achieve O(n) TC and O(1) space we can reverse the second half of the LL then compare
+  let slow = head;
+  let fast = head;
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+    // when this terminates, the slow marker is at the middle
+  }
+  let revHead = reverse(slow);
+  while (revHead) {
+    if (head.val !== revHead.val) {
+      return false;
+    }
+    head = head.next;
+    revHead = revHead.next;
+  }
+  return true;
+
+  // this messes up the ll. Can re-reverse the second half to fix after
+};
+const reverse = function (head) {
+  let prev = null;
+  let curr = head;
+  while (curr) {
+    let next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  return prev;
+};
