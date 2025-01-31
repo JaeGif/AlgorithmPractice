@@ -810,3 +810,48 @@ const maxArea = function (height) {
   }
   return currentMaxArea;
 };
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+const decodeString = function (s) {
+  //return the decoded string
+  // rule "int['string']"
+  // int specifies the number of repeats
+  // [3, 'string']
+  // with closing parenthesis evaluate the stack
+  // el[0] === num use to repeat string and add to result string
+  // ints may be more than 1 char
+  let currentNum = 0;
+  let currentString = '';
+  let stack = [];
+  for (let i = 0; i < s.length; i++) {
+    // check char
+    if (s[i] === '[') {
+      // start of string sequence
+      stack.push(currentString);
+      stack.push(currentNum);
+      currentString = '';
+      currentNum = 0;
+    } else if (s[i] === ']') {
+      // end of string sequence, evaluate
+      // the last thing in the stack is num, curr string is stored in var
+
+      let num = parseInt(stack.pop());
+
+      const prevString = stack.pop();
+
+      const currentCharString = currentString;
+      while (num > 1) {
+        currentString += currentCharString;
+        num--;
+      }
+      currentString = prevString + currentString;
+    } else if (!Number.isNaN(Number(s[i]))) {
+      // add to the current num
+      currentNum = currentNum * 10 + Number(s[i]);
+    } else currentString += s[i];
+  }
+  return currentString;
+};
