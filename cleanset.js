@@ -774,3 +774,39 @@ const threeSum = function (nums) {
   }
   return result;
 };
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+const maxArea = function (height) {
+  // area is defined by h x w
+  // use 2 pointers to calculate the area at each position and update max
+  // 1 8 6 2 5 4 8 3 7
+  // 0 1 2 3 4 5 6 7 8
+  //
+
+  // sanity check on mistakes here and edge cases
+  // height =[0, 0] currentMax = 0
+  // height = [] ? right === left. exit return 0
+  // TC: O(n) worst case iterates across whole array one time
+  // SC: O(1) only making new vars and pointers which take constant space
+  let currentMaxArea = 0;
+  let left = 0;
+  let right = height.length - 1;
+
+  while (right > left) {
+    // update currentMaxArea
+    currentMaxArea = Math.max(
+      currentMaxArea,
+      Math.min(height[right], height[left]) * (right - left)
+    );
+
+    // move pointers toward the smaller pillar
+    if (height[right] > height[left]) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return currentMaxArea;
+};
