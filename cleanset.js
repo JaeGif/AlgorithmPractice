@@ -902,3 +902,42 @@ const reverse = function (head) {
   }
   return prev;
 };
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+const maxAreaOfIsland = function (grid) {
+  let islandCount = 0;
+  const visitSpace = (i, j) => {
+    // guard case we hit the edge
+    if (
+      (!i && i !== 0) ||
+      (!j && j !== 0) ||
+      j < 0 ||
+      i < 0 ||
+      !grid[i] ||
+      !grid[i][j]
+    )
+      return 0;
+    if (grid[i][j] === 1) {
+      grid[i][j] = 0;
+      return (
+        1 +
+        visitSpace(i, j - 1) +
+        visitSpace(i - 1, j) +
+        visitSpace(i + 1, j) +
+        visitSpace(i, j + 1)
+      );
+    } else {
+      return 0;
+    }
+  };
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      if (grid[i][j]) {
+        islandCount = Math.max(islandCount, visitSpace(i, j));
+      }
+    }
+  }
+  return islandCount;
+};
