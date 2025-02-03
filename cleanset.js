@@ -941,3 +941,42 @@ const maxAreaOfIsland = function (grid) {
   }
   return islandCount;
 };
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+const spiralOrder = function (matrix) {
+  // go around and in.
+  // need to know where you've visited before
+  // need to first, increase i till it is undefined, then go down till undefined again, then right andn on and 1 round inward
+  // 1 2  3  4
+  //         i
+  // 5 6  7  8
+  //
+  // 9 10 11 12
+  //
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  let res = [];
+  let x = 0;
+  let y = 0;
+  let dx = 1;
+  let dy = 0;
+
+  for (let i = 0; i < rows * cols; i++) {
+    // traverse the full depth of the matrix
+    res.push(matrix[y][x]);
+    // change so we know we visited
+    matrix[y][x] = '.';
+    // if we reach a spot we need to switcheroo, give it the change
+    if (
+      !(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) ||
+      matrix[y + dy][x + dx] === '.'
+    ) {
+      [dx, dy] = [-dy, dx];
+    }
+    x += dx;
+    y += dy;
+  }
+  return res;
+};
