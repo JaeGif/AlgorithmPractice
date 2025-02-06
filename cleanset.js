@@ -910,6 +910,15 @@ const maxAreaOfIsland = function (grid) {
   let islandCount = 0;
   const visitSpace = (i, j) => {
     // guard case we hit the edge
+    // 000000
+    // 000001
+    // 000000
+    //
+    // 0v 0 0 0 0
+    // 0 0 0 0 1
+    // 0 0 0 1 1
+    // 0 1 1 0 0
+    // 0 0 1 0 0
     if (
       (!i && i !== 0) ||
       (!j && j !== 0) ||
@@ -950,9 +959,7 @@ const spiralOrder = function (matrix) {
   // need to know where you've visited before
   // need to first, increase i till it is undefined, then go down till undefined again, then right andn on and 1 round inward
   // 1 2  3  4
-  //         i
   // 5 6  7  8
-  //
   // 9 10 11 12
   //
   const rows = matrix.length;
@@ -979,4 +986,51 @@ const spiralOrder = function (matrix) {
     y += dy;
   }
   return res;
+};
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number[]} nums
+ * @return {number}
+ */
+const numComponents = function (head, nums) {
+  let hashNums = {};
+  for (let i = 0; i < nums.length; i++) {
+    hashNums[nums[i]] = 1;
+  }
+  // check if val is in hashmap, if it is add to arr
+  let pointer = head;
+  let result = [];
+  let current = [];
+  // 0 1 2 3   { 0: 1
+  //       ^        //  1: 1
+  //  3 : 1
+  // }
+  //
+  // [[0, 1], [3]]
+  // // current= []
+  //  result = [[0, 1], [3]] = 2
+  while (pointer) {
+    if (hashNums[pointer.val]) {
+      // then it gets added to current "component"
+      current.push(pointer.val);
+    } else {
+      if (current.length > 0) {
+        result.push(current);
+        current = [];
+      }
+    }
+    // dump current
+    if (!pointer.next) {
+      if (current.length > 0) result.push(current);
+    }
+    pointer = pointer.next;
+  }
+  return result.length;
 };
