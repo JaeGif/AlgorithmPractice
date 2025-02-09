@@ -1063,3 +1063,32 @@ const removeNthFromEnd = function (head, n) {
 
   return res.next;
 };
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const countBadPairs = function (nums) {
+  // add to count if i < j and j - i != nums[j] - nums[i]
+  //
+  let goodPairs = 0;
+  const freq = {};
+
+  // the obvious solution is O(n^2) iterate across everything twice
+  // I assume that is not the solution that will get me passed
+  //
+  // j - i != nums[j] - nums[i] === nums[i] - i != nums[j] - j
+  //
+
+  for (let i = 0; i < nums.length; i++) {
+    const key = nums[i] - i;
+    if (freq[key]) {
+      goodPairs += freq[key];
+      freq[key] += 1;
+    } else {
+      freq[key] = 1;
+    }
+  }
+  const n = nums.length;
+
+  return (n * (n - 1)) / 2 - goodPairs;
+};
