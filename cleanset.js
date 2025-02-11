@@ -1092,3 +1092,38 @@ const countBadPairs = function (nums) {
 
   return (n * (n - 1)) / 2 - goodPairs;
 };
+/**
+ * @param {string} s
+ * @param {string} part
+ * @return {string}
+ */
+const removeOccurrences = function (s, part) {
+  // find remove substring occurences left to right until all occurrences are gone
+  // return s after they are all removed
+
+  // when things candy crush together, stack
+  const stack = [];
+  for (let i = 0; i < s.length; i++) {
+    // add to stack, if the top 'parts' on stack are PART pop all of PART
+    // track part as it is building
+    // after a pop, part will need to be redefined though
+    stack.push(s[i]);
+
+    if (stack.length >= part.length && checkMatch(stack, part)) {
+      for (let j = 0; j < part.length; j++) {
+        // pop part.length number of els
+        stack.pop();
+      }
+    }
+  }
+
+  // rejoin stack
+  return stack.join('');
+};
+
+const checkMatch = (stack, part) => {
+  // checkout the last part of the stack
+  // rejoin part.length pieces of the stack and compare
+  const lastCouple = stack.slice(stack.length - part.length);
+  return stack.slice(stack.length - part.length).join('') === part;
+};
