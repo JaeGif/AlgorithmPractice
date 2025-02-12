@@ -1149,3 +1149,43 @@ const rob = function (nums) {
 
   return dp[nums.length - 1];
 };
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const maximumSum = function (nums) {
+  // nums is positive
+  // pick i and j where i !== j and the sum of digits in nums[i] === nums[j] sum of digits
+  // return max sum of i and j that satisfy the conditions
+  // else return -1
+  let result = -1;
+
+  // 18 43 36 13 7
+  // i
+  // sum: val
+  // therefore we can use an array and pray
+  const digitsMap = Array(82).fill(0); // as 81 is the max possible sum
+  for (let i = 0; i < nums.length; i++) {
+    const sum = digitsSummer(nums[i]);
+    if (digitsMap[sum] === 0) {
+      // add it in if not seen before
+      digitsMap[sum] = nums[i];
+    } else {
+      const currentSum = digitsMap[sum] + nums[i];
+      digitsMap[sum] = Math.max(digitsMap[sum], nums[i]);
+      result = Math.max(result, currentSum);
+    }
+  }
+
+  return result;
+};
+
+const digitsSummer = (x) => {
+  let digitSum = 0;
+  while (x > 0) {
+    digitSum += x % 10;
+    x /= 10;
+    x = Math.floor(x);
+  }
+  return digitSum;
+};
