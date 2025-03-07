@@ -4,7 +4,7 @@ class Solutions {
     // return the 2 nums that add to target
     // slow method is 2x for looping
 
-    public static int[] twoSum(int[] nums, int target) {
+    public int[] twoSum(int[] nums, int target) {
         // if the input is sorted, only one pass
         int[] result = {0, 0};
 
@@ -22,10 +22,12 @@ class Solutions {
     }
 
     public static void main(String[] args) {
-
         int[] twoSumRes;
         int[] nums = {1, 2, 3, 4, 5};
-        twoSumRes = twoSum(nums,9);
+        int target = 9;
+        Solutions solutions = new Solutions();
+
+        twoSumRes = solutions.twoSum(nums, target);
         System.out.print(Arrays.toString(twoSumRes));
     }
 }
