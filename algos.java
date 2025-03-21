@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 class Solutions {
     // return the 2 nums that add to target
@@ -20,14 +19,37 @@ class Solutions {
         }
     return result;
     }
+    // Best time to buy and sell stock 1
+    /* 
+    Input: prices = [7,1,5,3,6,4]
+    Output: 5
+    Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+    Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell. 
+
+    */
+
+    public int maxProfit(int[] prices) {
+        // may buy and sell 1 time only.
+        // track the biggest delta go across arr 1 time
+        int profit = 0;
+        int buyPoint = prices[0];
+
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < buyPoint) {
+                buyPoint = prices[i];
+            } if (prices[i] - buyPoint > profit) {
+                profit = prices[i] - buyPoint;
+            }
+        }   
+        return profit;
+    }
 
     public static void main(String[] args) {
-        int[] twoSumRes;
-        int[] nums = {1, 2, 3, 4, 5};
-        int target = 9;
+        int maxProfitRes;
+        int[] prices = {7,1,5,3,6,4};
         Solutions solutions = new Solutions();
 
-        twoSumRes = solutions.twoSum(nums, target);
-        System.out.print(Arrays.toString(twoSumRes));
+        maxProfitRes = solutions.maxProfit(prices);
+        System.out.print(maxProfitRes);
     }
 }
